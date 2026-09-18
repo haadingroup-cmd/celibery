@@ -14,10 +14,10 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-3xl border border-brand-100 bg-brand-50 px-6 py-14 text-center">
-        <CheckCircle2 className="h-10 w-10 text-brand-600" />
-        <h3 className="font-display text-lg font-semibold text-ink-950">Message sent</h3>
-        <p className="max-w-sm text-sm text-ink-600">
+      <div className="flex flex-col items-center gap-3 rounded-3xl border border-emerald-50 bg-emerald-50 px-6 py-14 text-center">
+        <CheckCircle2 className="h-10 w-10 text-brand-emerald" />
+        <h3 className="font-display text-lg font-semibold text-neutral-900">Message sent</h3>
+        <p className="max-w-sm text-sm text-neutral-600">
           Thanks for reaching out — our support team replies within 2 business hours on average.
         </p>
       </div>
@@ -28,7 +28,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-sm font-medium text-ink-800">
+          <label htmlFor="name" className="text-sm font-medium text-neutral-800">
             Full name
           </label>
           <input
@@ -37,11 +37,11 @@ export function ContactForm() {
             required
             type="text"
             placeholder="Jane Doe"
-            className="h-12 rounded-xl border border-ink-200 px-4 text-sm text-ink-950 placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
+            className="h-12 rounded-xl border border-neutral-200 px-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-green focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-100"
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="email" className="text-sm font-medium text-ink-800">
+          <label htmlFor="email" className="text-sm font-medium text-neutral-800">
             Email
           </label>
           <input
@@ -50,19 +50,19 @@ export function ContactForm() {
             required
             type="email"
             placeholder="you@email.com"
-            className="h-12 rounded-xl border border-ink-200 px-4 text-sm text-ink-950 placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
+            className="h-12 rounded-xl border border-neutral-200 px-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-green focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-100"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="subject" className="text-sm font-medium text-ink-800">
+        <label htmlFor="subject" className="text-sm font-medium text-neutral-800">
           Subject
         </label>
         <select
           id="subject"
           name="subject"
-          className="h-12 rounded-xl border border-ink-200 bg-white px-4 text-sm text-ink-950 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
+          className="h-12 rounded-xl border border-neutral-200 bg-white px-4 text-sm text-neutral-900 focus:border-brand-green focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-100"
           defaultValue="Order support"
         >
           <option>Order support</option>
@@ -74,7 +74,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-sm font-medium text-ink-800">
+        <label htmlFor="message" className="text-sm font-medium text-neutral-800">
           Message
         </label>
         <textarea
@@ -83,7 +83,7 @@ export function ContactForm() {
           required
           rows={5}
           placeholder="How can we help?"
-          className="resize-none rounded-xl border border-ink-200 px-4 py-3 text-sm text-ink-950 placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
+          className="resize-none rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-green focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-100"
         />
       </div>
 

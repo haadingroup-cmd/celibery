@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div>
-      <section className="bg-brand-50/60 py-16 sm:py-20">
+      <section className="bg-emerald-50/60 py-16 sm:py-20">
         <Container>
           <SectionHeading
             align="center"
@@ -29,47 +29,47 @@ export default function ContactPage() {
       <section className="py-16 sm:py-20">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <div className="order-2 flex flex-col gap-6 lg:order-1">
-            <div className="flex items-center gap-4 rounded-2xl border border-ink-100 p-4">
-              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+            <div className="flex items-center gap-4 rounded-2xl border border-neutral-100 p-4">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-brand-emerald">
                 <Mail className="h-5 w-5" strokeWidth={1.6} />
               </div>
               <div>
-                <p className="text-sm text-ink-500">Email us</p>
-                <a href={`mailto:${site.email}`} className="font-medium text-ink-950 hover:text-brand-700">
+                <p className="text-sm text-neutral-500">Email us</p>
+                <a href={`mailto:${site.email}`} className="font-medium text-neutral-900 hover:text-brand-emerald">
                   {site.email}
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-4 rounded-2xl border border-ink-100 p-4">
-              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+            <div className="flex items-center gap-4 rounded-2xl border border-neutral-100 p-4">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-brand-emerald">
                 <Phone className="h-5 w-5" strokeWidth={1.6} />
               </div>
               <div>
-                <p className="text-sm text-ink-500">Call us</p>
-                <a href={`tel:${site.phone}`} className="font-medium text-ink-950 hover:text-brand-700">
+                <p className="text-sm text-neutral-500">Call us</p>
+                <a href={`tel:${site.phone}`} className="font-medium text-neutral-900 hover:text-brand-emerald">
                   {site.phone}
                 </a>
-                <p className="text-xs text-ink-400">Mon–Fri, 9am–6pm CT</p>
+                <p className="text-xs text-neutral-400">Mon–Fri, 9am–6pm CT</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 rounded-2xl border border-ink-100 p-4">
-              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+            <div className="flex items-center gap-4 rounded-2xl border border-neutral-100 p-4">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-brand-emerald">
                 <MapPin className="h-5 w-5" strokeWidth={1.6} />
               </div>
               <div>
-                <p className="text-sm text-ink-500">Headquarters</p>
-                <p className="font-medium text-ink-950">{site.address}</p>
+                <p className="text-sm text-neutral-500">Headquarters</p>
+                <p className="font-medium text-neutral-900">{site.address}</p>
               </div>
             </div>
           </div>
 
-          <div className="order-1 rounded-3xl border border-ink-100 p-6 sm:p-8 lg:order-2">
+          <div className="order-1 rounded-3xl border border-neutral-100 p-6 sm:p-8 lg:order-2">
             <ContactForm />
           </div>
         </Container>
       </section>
 
-      <section id="faq" className="scroll-mt-24 border-t border-ink-100 py-16 sm:py-20">
+      <section id="faq" className="scroll-mt-24 border-t border-neutral-100 py-16 sm:py-20">
         <Container>
           <SectionHeading
             align="center"

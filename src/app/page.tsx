@@ -1,23 +1,27 @@
 import { Hero } from "@/components/home/Hero";
-import { CategoryGrid } from "@/components/home/CategoryGrid";
-import { FeaturedProduct } from "@/components/home/FeaturedProduct";
-import { BestSellers } from "@/components/home/BestSellers";
-import { TechShowcase } from "@/components/home/TechShowcase";
-import { WhyCelibery } from "@/components/home/WhyCelibery";
-import { Testimonials } from "@/components/home/Testimonials";
-import { Newsletter } from "@/components/home/Newsletter";
+import { SignatureSeries } from "@/components/home/SignatureSeries";
+import { ProductLineupPills } from "@/components/home/ProductLineupPills";
+import { MadeToMatchWorld } from "@/components/home/MadeToMatchWorld";
+import { DrivenByInnovation } from "@/components/home/DrivenByInnovation";
+import { GlobalPartners } from "@/components/home/GlobalPartners";
+import { MediaVoices } from "@/components/home/MediaVoices";
+import { WhatProsAreSaying } from "@/components/home/WhatProsAreSaying";
+import { Newsroom } from "@/components/home/Newsroom";
+import { QuickServicesRow } from "@/components/home/QuickServicesRow";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <CategoryGrid />
-      <FeaturedProduct />
-      <BestSellers />
-      <TechShowcase />
-      <WhyCelibery />
-      <Testimonials />
-      <Newsletter />
+      <SignatureSeries />
+      <ProductLineupPills />
+      <MadeToMatchWorld />
+      <DrivenByInnovation />
+      <GlobalPartners />
+      <MediaVoices />
+      <WhatProsAreSaying />
+      <Newsroom />
+      <QuickServicesRow />
     </>
   );
 }

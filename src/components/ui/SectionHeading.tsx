@@ -24,20 +24,20 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <span className="text-xs font-semibold tracking-[0.18em] text-brand-600 uppercase">
+        <span className="text-xs font-semibold tracking-[0.18em] text-brand-emerald uppercase">
           {eyebrow}
         </span>
       )}
       <h2
         className={cn(
-          "font-display text-3xl leading-[1.1] font-semibold tracking-tight text-ink-950 sm:text-4xl lg:text-[2.75rem]",
+          "font-display text-3xl leading-[1.1] font-semibold tracking-tight text-neutral-900 sm:text-4xl lg:text-[2.75rem]",
           titleClassName,
         )}
       >
         {title}
       </h2>
       {description && (
-        <p className={cn("max-w-2xl text-base leading-relaxed text-ink-600 sm:text-lg", align === "center" && "mx-auto")}>
+        <p className={cn("max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg", align === "center" && "mx-auto")}>
           {description}
         </p>
       )}

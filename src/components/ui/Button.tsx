@@ -3,14 +3,14 @@ import { cn } from "@/lib/utils";
 import type { ComponentPropsWithoutRef } from "react";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 disabled:opacity-50 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-emerald disabled:opacity-50 disabled:pointer-events-none";
 
 const variants = {
-  primary: "bg-ink-950 text-white hover:bg-brand-700 active:scale-[0.98]",
-  accent: "bg-brand-500 text-white hover:bg-brand-600 active:scale-[0.98]",
-  outline: "border border-ink-950/15 text-ink-950 hover:border-ink-950/40 active:scale-[0.98]",
-  ghost: "text-ink-950 hover:bg-ink-100 active:scale-[0.98]",
-  white: "bg-white text-ink-950 hover:bg-brand-50 active:scale-[0.98]",
+  primary: "bg-neutral-900 text-white hover:bg-black active:scale-[0.98]",
+  accent: "bg-brand-green text-black hover:bg-brand-emerald hover:text-white active:scale-[0.98]",
+  outline: "border border-neutral-900/15 text-neutral-900 hover:border-neutral-900/40 active:scale-[0.98]",
+  ghost: "text-neutral-900 hover:bg-neutral-100 active:scale-[0.98]",
+  white: "bg-white text-neutral-900 hover:bg-emerald-50 active:scale-[0.98]",
 };
 
 const sizes = {

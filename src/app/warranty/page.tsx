@@ -18,10 +18,10 @@ export default function WarrantyPage() {
           { icon: Wrench, label: "Free replacement", sub: "for covered defects" },
           { icon: XCircle, label: "No receipt hunting", sub: "just your order number" },
         ].map((item) => (
-          <div key={item.label} className="flex flex-col items-center gap-2 rounded-2xl bg-brand-50 p-5 text-center">
-            <item.icon className="h-6 w-6 text-brand-700" strokeWidth={1.6} />
-            <p className="font-display font-semibold text-ink-950">{item.label}</p>
-            <p className="text-xs text-ink-500">{item.sub}</p>
+          <div key={item.label} className="flex flex-col items-center gap-2 rounded-2xl bg-emerald-50 p-5 text-center">
+            <item.icon className="h-6 w-6 text-brand-emerald" strokeWidth={1.6} />
+            <p className="font-display font-semibold text-neutral-900">{item.label}</p>
+            <p className="text-xs text-neutral-500">{item.sub}</p>
           </div>
         ))}
       </div>

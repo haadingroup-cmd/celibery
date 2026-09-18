@@ -20,12 +20,12 @@ export default function PrivacyPage() {
 
       <PolicySection title="Information we collect">
         <p>
-          <strong className="text-ink-800">Information you give us:</strong> name, email, shipping
+          <strong className="text-neutral-800">Information you give us:</strong> name, email, shipping
           and billing address, phone number, and payment details when you place an order, sign up
           for our newsletter, or contact support.
         </p>
         <p>
-          <strong className="text-ink-800">Information collected automatically:</strong> device
+          <strong className="text-neutral-800">Information collected automatically:</strong> device
           type, browser, IP address, pages visited, and referral source, collected via cookies and
           similar technologies to keep the site working and to understand how it&apos;s used.
         </p>
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
         <p>
           You can unsubscribe from marketing emails at any time using the link in any email, or
           request access to, correction of, or deletion of your personal data by contacting us at{" "}
-          <a href={`mailto:${site.email}`} className="text-brand-700 underline underline-offset-2">
+          <a href={`mailto:${site.email}`} className="text-brand-emerald underline underline-offset-2">
             {site.email}
           </a>
           .

@@ -2,96 +2,35 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0a0c0b;
+  --foreground: #111827;
 
-  /* Brand — deep emerald signature with a bright signal-green accent */
-  --color-brand-950: #06211a;
-  --color-brand-900: #0a3327;
-  --color-brand-800: #0d4534;
-  --color-brand-700: #0f5a41;
-  --color-brand-600: #13744f;
-  --color-brand-500: #17925f;
-  --color-brand-400: #2fb379;
-  --color-brand-300: #6ed3a2;
-  --color-brand-200: #a9e8c6;
-  --color-brand-100: #d7f4e3;
-  --color-brand-50: #f1faf5;
-
-  /* Signal accent — used sparingly for CTAs / highlights */
-  --color-signal-500: #17c185;
-  --color-signal-400: #3fe0a2;
-
-  /* Neutral ink scale */
-  --color-ink-950: #0a0c0b;
-  --color-ink-900: #141712;
-  --color-ink-800: #1e2320;
-  --color-ink-700: #333a35;
-  --color-ink-600: #4a534c;
-  --color-ink-500: #6b746d;
-  --color-ink-400: #94a09a;
-  --color-ink-300: #bcc5bf;
-  --color-ink-200: #dde2df;
-  --color-ink-100: #edf1ee;
-  --color-ink-50: #f7f9f7;
+  /* Brand — matches the approved Stitch design system */
+  --color-brand-green: #00cc66;
+  --color-brand-emerald: #00b553;
+  --color-brand-dark: #111827;
+  --color-brand-gray: #6b7280;
+  --color-brand-light: #f5f7f9;
+  --color-brand-border: #e5e7eb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-brand-950: var(--color-brand-950);
-  --color-brand-900: var(--color-brand-900);
-  --color-brand-800: var(--color-brand-800);
-  --color-brand-700: var(--color-brand-700);
-  --color-brand-600: var(--color-brand-600);
-  --color-brand-500: var(--color-brand-500);
-  --color-brand-400: var(--color-brand-400);
-  --color-brand-300: var(--color-brand-300);
-  --color-brand-200: var(--color-brand-200);
-  --color-brand-100: var(--color-brand-100);
-  --color-brand-50: var(--color-brand-50);
-
-  --color-signal-500: var(--color-signal-500);
-  --color-signal-400: var(--color-signal-400);
-
-  --color-ink-950: var(--color-ink-950);
-  --color-ink-900: var(--color-ink-900);
-  --color-ink-800: var(--color-ink-800);
-  --color-ink-700: var(--color-ink-700);
-  --color-ink-600: var(--color-ink-600);
-  --color-ink-500: var(--color-ink-500);
-  --color-ink-400: var(--color-ink-400);
-  --color-ink-300: var(--color-ink-300);
-  --color-ink-200: var(--color-ink-200);
-  --color-ink-100: var(--color-ink-100);
-  --color-ink-50: var(--color-ink-50);
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-emerald: var(--color-brand-emerald);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-gray: var(--color-brand-gray);
+  --color-brand-light: var(--color-brand-light);
+  --color-brand-border: var(--color-brand-border);
 
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
 
   --container-8xl: 90rem;
+}
 
-  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  --animate-marquee: marquee 28s linear infinite;
-
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -100,21 +39,17 @@ body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
 
-.font-display {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
-}
-
 ::selection {
-  background: var(--color-brand-200);
-  color: var(--color-brand-950);
+  background: var(--color-brand-green);
+  color: #ffffff;
 }
 
-/* Reusable subtle noise/grid backdrop for premium section texture */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(10, 12, 11, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(10, 12, 11, 0.045) 1px, transparent 1px);
-  background-size: 40px 40px;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

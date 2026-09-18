@@ -31,7 +31,7 @@ export function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col divide-y divide-ink-100 rounded-2xl border border-ink-100">
+    <div className="flex flex-col divide-y divide-neutral-100 rounded-2xl border border-neutral-100">
       {faqs.map((faq, i) => {
         const isOpen = open === i;
         return (
@@ -41,11 +41,11 @@ export function FaqAccordion() {
               aria-expanded={isOpen}
               className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
             >
-              <span className="font-medium text-ink-950">{faq.q}</span>
+              <span className="font-medium text-neutral-900">{faq.q}</span>
               <ChevronDown
                 className={cn(
-                  "h-4 w-4 flex-shrink-0 text-ink-400 transition-transform duration-300",
-                  isOpen && "rotate-180 text-brand-600",
+                  "h-4 w-4 flex-shrink-0 text-neutral-400 transition-transform duration-300",
+                  isOpen && "rotate-180 text-brand-emerald",
                 )}
               />
             </button>
@@ -56,7 +56,7 @@ export function FaqAccordion() {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-5 text-sm leading-relaxed text-ink-600 sm:px-6">{faq.a}</p>
+                <p className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 sm:px-6">{faq.a}</p>
               </div>
             </div>
           </div>

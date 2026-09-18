@@ -7,32 +7,38 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Shop all products",
-  description: "Browse Celibery GaN chargers, cables, power banks, docks, and wireless chargers.",
+  description: "Browse Celibery NAS storage, GaN chargers, power banks, docks, and wireless chargers.",
 };
 
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; series?: string }>;
 }) {
-  const { category } = await searchParams;
+  const { category, series } = await searchParams;
   const activeCategory = categories.find((c) => c.slug === category);
-  const filtered = activeCategory
-    ? products.filter((p) => p.categorySlug === activeCategory.slug)
-    : products;
+  const activeSeries = series;
+
+  const filtered = activeSeries
+    ? products.filter((p) => p.series === activeSeries)
+    : activeCategory
+      ? products.filter((p) => p.categorySlug === activeCategory.slug)
+      : products;
+
+  const heading = activeSeries
+    ? `Celibery ${activeSeries.charAt(0).toUpperCase()}${activeSeries.slice(1)} Series`
+    : activeCategory
+      ? activeCategory.name
+      : "All products";
 
   return (
     <div className="py-10 sm:py-14">
       <Container>
         <div className="flex flex-col gap-3">
-          <span className="text-xs font-semibold tracking-[0.18em] text-brand-600 uppercase">
-            Shop
-          </span>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink-950 sm:text-4xl">
-            {activeCategory ? activeCategory.name : "All products"}
-          </h1>
-          <p className="max-w-xl text-ink-600">
-            {activeCategory ? activeCategory.description : "Every charger, cable, and power bank we make — one design language, lab-tested for safety."}
+          <span className="text-xs font-semibold tracking-[0.18em] text-brand-emerald uppercase">Shop</span>
+          <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">{heading}</h1>
+          <p className="max-w-xl text-neutral-600">
+            Every NAS, charger, power bank, and dock we make — one design language, lab-tested for safety.
           </p>
         </div>
 
@@ -42,7 +48,7 @@ export default async function ProductsPage({
               href="/products"
               className={cn(
                 "flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                !activeCategory ? "bg-ink-950 text-white" : "bg-ink-100 text-ink-700 hover:bg-ink-200",
+                !activeCategory && !activeSeries ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
               )}
             >
               All
@@ -54,8 +60,8 @@ export default async function ProductsPage({
                 className={cn(
                   "flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors",
                   activeCategory?.slug === c.slug
-                    ? "bg-ink-950 text-white"
-                    : "bg-ink-100 text-ink-700 hover:bg-ink-200",
+                    ? "bg-neutral-900 text-white"
+                    : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
                 )}
               >
                 {c.name}
@@ -76,8 +82,8 @@ export default async function ProductsPage({
           </div>
         ) : (
           <div className="mt-16 flex flex-col items-center gap-2 py-16 text-center">
-            <p className="font-display text-lg font-semibold text-ink-950">No products found</p>
-            <p className="text-sm text-ink-500">Try a different category.</p>
+            <p className="text-lg font-semibold text-neutral-900">No products found</p>
+            <p className="text-sm text-neutral-500">Try a different category.</p>
           </div>
         )}
       </Container>

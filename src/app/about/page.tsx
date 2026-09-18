@@ -3,9 +3,9 @@ import { Cpu, Recycle, Scale, Wrench } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { ProductVisual } from "@/components/ui/ProductVisual";
+import { ProductArt } from "@/components/ui/ProductArt";
 import { stats } from "@/data/site";
-import { products } from "@/data/products";
+import { getProductBySlug } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "About Celibery",
@@ -34,35 +34,32 @@ const values = [
   {
     icon: Recycle,
     title: "Low-waste by default",
-    description:
-      "Plastic-free packaging, recycled fiber boxes, and cables designed to be repaired, not replaced.",
+    description: "Plastic-free packaging, recycled fiber boxes, and cables designed to be repaired, not replaced.",
   },
 ];
 
 export default function AboutPage() {
-  const visual = products[4];
+  const visual = getProductBySlug("nasync-dh2300")!;
 
   return (
     <div>
-      <section className="bg-brand-50/60 py-16 sm:py-24">
+      <section className="bg-emerald-50/60 py-16 sm:py-24">
         <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col gap-5">
-            <span className="text-xs font-semibold tracking-[0.18em] text-brand-600 uppercase">
-              Our story
-            </span>
-            <h1 className="font-display text-3xl font-bold leading-tight tracking-tight text-ink-950 sm:text-4xl lg:text-5xl">
-              We build the charger you stop thinking about.
+            <span className="text-xs font-semibold tracking-[0.18em] text-brand-emerald uppercase">Our story</span>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
+              Smart tech, built for smarter living.
             </h1>
-            <p className="text-base leading-relaxed text-ink-600 sm:text-lg">
-              Celibery started with a drawer full of dead cables and chargers that ran hot enough
-              to worry about. A small team of power electronics engineers set out to build one
-              charger that actually held up — then kept going until it became a full lineup.
-              Every product still ships from the same principle: fewer parts, better materials,
-              tested harder than it needs to be.
+            <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
+              Celibery started with a simple frustration: chargers that ran hot, cables that frayed within
+              months, and storage boxes nobody wanted on their desk. A small team of power electronics and
+              industrial design engineers set out to fix that — one product at a time, tested harder than it
+              needed to be, until it became a full lineup spanning NAS storage, charging, and everyday
+              accessories.
             </p>
           </div>
-          <div className="mx-auto w-full max-w-md lg:max-w-none">
-            <ProductVisual icon={visual.icon} variant="brand" />
+          <div className="mx-auto flex w-full max-w-md items-center justify-center rounded-3xl border border-gray-200 bg-white p-10 lg:max-w-none">
+            <ProductArt kind={visual.visual} className="h-56 w-56" />
           </div>
         </Container>
       </section>
@@ -77,12 +74,12 @@ export default function AboutPage() {
           <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:mt-14 sm:grid-cols-2">
             {values.map((v) => (
               <div key={v.title} className="flex items-start gap-4">
-                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-brand-emerald">
                   <v.icon className="h-5 w-5" strokeWidth={1.6} />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-ink-950">{v.title}</h3>
-                  <p className="mt-1 leading-relaxed text-ink-600">{v.description}</p>
+                  <h3 className="text-lg font-semibold text-neutral-900">{v.title}</h3>
+                  <p className="mt-1 leading-relaxed text-neutral-600">{v.description}</p>
                 </div>
               </div>
             ))}
@@ -90,13 +87,13 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-ink-950 py-16 text-white sm:py-20">
+      <section className="bg-neutral-900 py-16 text-white sm:py-20">
         <Container>
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center text-center">
-                <span className="font-display text-3xl font-bold sm:text-4xl">{stat.value}</span>
-                <span className="mt-1 text-sm text-ink-400">{stat.label}</span>
+                <span className="text-3xl font-bold sm:text-4xl">{stat.value}</span>
+                <span className="mt-1 text-sm text-neutral-400">{stat.label}</span>
               </div>
             ))}
           </div>
@@ -105,12 +102,12 @@ export default function AboutPage() {
 
       <section className="py-16 sm:py-24">
         <Container className="flex flex-col items-center gap-5 text-center">
-          <h2 className="font-display text-3xl font-semibold tracking-tight text-ink-950 sm:text-4xl">
-            Ready to clean up your charging drawer?
+          <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+            Ready to upgrade your setup?
           </h2>
-          <p className="max-w-lg text-ink-600">
-            Start with the Nexus 100 or browse the full lineup — every product ships with our
-            18-month warranty.
+          <p className="max-w-lg text-neutral-600">
+            Start with the NASync DH2300 or browse the full lineup — every product ships with our 18-month
+            warranty.
           </p>
           <Button href="/products" variant="primary" size="lg" className="mt-2">
             Shop all products

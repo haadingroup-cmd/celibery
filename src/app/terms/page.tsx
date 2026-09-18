@@ -29,7 +29,7 @@ export default function TermsPage() {
         <p>
           Ownership and risk of loss for products pass to you once an order is handed to the
           carrier. See our{" "}
-          <a href="/shipping" className="text-brand-700 underline underline-offset-2">
+          <a href="/shipping" className="text-brand-emerald underline underline-offset-2">
             Shipping &amp; Returns
           </a>{" "}
           page for delivery timelines.
@@ -39,7 +39,7 @@ export default function TermsPage() {
       <PolicySection title="Warranty">
         <p>
           Products are covered by our{" "}
-          <a href="/warranty" className="text-brand-700 underline underline-offset-2">
+          <a href="/warranty" className="text-brand-emerald underline underline-offset-2">
             18-month limited warranty
           </a>
           . Outside of that warranty, products are provided &ldquo;as is&rdquo; to the extent permitted

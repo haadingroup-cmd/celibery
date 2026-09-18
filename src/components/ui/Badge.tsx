@@ -10,9 +10,9 @@ export function Badge({
   className?: string;
 }) {
   const tones = {
-    brand: "bg-brand-500 text-white",
-    dark: "bg-ink-950 text-white",
-    light: "bg-white text-ink-950 ring-1 ring-ink-950/10",
+    brand: "bg-brand-green text-white",
+    dark: "bg-neutral-900 text-white",
+    light: "bg-white text-neutral-900 ring-1 ring-neutral-900/10",
   };
 
   return (

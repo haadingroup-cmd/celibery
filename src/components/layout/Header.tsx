@@ -2,107 +2,388 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X, ShoppingBag } from "lucide-react";
-import { mainNav, site } from "@/data/site";
-import { Container } from "@/components/ui/Container";
+import { ChevronDown, Menu, ShoppingBag, User, X } from "lucide-react";
+import { site } from "@/data/site";
+import { products, getProductBySlug } from "@/data/products";
+import { ProductArt } from "@/components/ui/ProductArt";
+import { formatAed } from "@/data/products";
 import { SearchOverlay } from "@/components/layout/SearchOverlay";
 import { cn } from "@/lib/utils";
 
+type MenuKey = "nas" | "charging" | "accessories" | null;
+
+const nasEntry = products.filter((p) => p.categorySlug === "nas-entry");
+const nasPerformance = products.filter((p) => p.categorySlug === "nas-performance");
+const nasSpotlight = getProductBySlug("nasync-dh2300")!;
+
+const chargingColumns = [
+  { title: "Power Banks", items: products.filter((p) => p.categorySlug === "power-banks").slice(0, 4) },
+  { title: "Chargers", items: products.filter((p) => p.categorySlug === "chargers").slice(0, 4) },
+  { title: "Wireless Qi2", items: products.filter((p) => p.categorySlug === "wireless-chargers").slice(0, 4) },
+  { title: "Cables & Adapters", items: products.filter((p) => p.categorySlug === "cables").slice(0, 4) },
+  { title: "Car Chargers", items: products.filter((p) => p.categorySlug === "car-chargers").slice(0, 4) },
+  { title: "Power Strips & Desks", items: products.filter((p) => p.categorySlug === "power-strips").slice(0, 4) },
+];
+const chargingSpotlight = getProductBySlug("magflow-3in1-wireless-25w")!;
+
+const accessoriesColumns = [
+  { title: "Hubs & Docks", items: products.filter((p) => p.categorySlug === "hubs-docks").slice(0, 4) },
+  { title: "Smart Trackers", items: products.filter((p) => p.categorySlug === "trackers").slice(0, 4) },
+  { title: "Audio & TWS", items: products.filter((p) => p.categorySlug === "audio").slice(0, 4) },
+];
+const accessoriesSpotlight = getProductBySlug("revodok-max-213")!;
+
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState<MenuKey>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [nasTab, setNasTab] = useState<"entry" | "performance">("entry");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
+    document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.documentElement.style.overflow = "";
     };
-  }, [open]);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMenu(null);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        scrolled || open ? "bg-white/90 shadow-sm backdrop-blur-md" : "bg-transparent",
-      )}
-    >
-      <Container>
-        <div className="flex h-16 items-center justify-between sm:h-20">
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className="font-display text-xl font-bold tracking-tight text-ink-950 sm:text-2xl"
-          >
-            {site.name}
-          </Link>
-
-          <nav className="hidden items-center gap-1 lg:flex">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-ink-100 hover:text-ink-950"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-1 sm:gap-2">
-            <SearchOverlay />
-            <Link
-              href="/cart"
-              aria-label="Cart"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full text-ink-700 transition-colors hover:bg-ink-100"
-            >
-              <ShoppingBag className="h-5 w-5" />
+    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-md">
+      {/* Announcement bar */}
+      <div className="bg-black px-4 py-2 text-xs text-gray-300">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-brand-green" />
+            <span className="hidden sm:inline">Free Express Delivery Across UAE on Orders Over AED 150</span>
+            <span className="sm:hidden">Free Delivery Over AED 150</span>
+          </div>
+          <div className="flex items-center gap-4 text-[11px] text-neutral-400 sm:gap-6">
+            <span className="hidden font-medium sm:inline">{site.region}</span>
+            <Link href="/contact" className="transition-colors hover:text-white">
+              Support Center
             </Link>
-            <button
-              aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink-700 transition-colors hover:bg-ink-100 lg:hidden"
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
           </div>
         </div>
-      </Container>
+      </div>
 
+      {/* Backdrop for mega menus */}
+      {menu && (
+        <button
+          aria-label="Close menu"
+          onClick={() => setMenu(null)}
+          className="fixed inset-0 top-[104px] z-40 bg-black/40 backdrop-blur-[2px]"
+        />
+      )}
+
+      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-10">
+          <Link href="/" className="flex items-center gap-1" onClick={() => setMenu(null)}>
+            <span className="select-none text-3xl font-extrabold tracking-tighter text-black uppercase">
+              {site.name}
+            </span>
+            <span className="mb-3 h-2 w-2 rounded-full bg-brand-green" />
+          </Link>
+
+          <nav className="hidden items-center gap-8 text-[15px] font-medium text-neutral-800 lg:flex">
+            <button
+              onClick={() => setMenu(menu === "nas" ? null : "nas")}
+              className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
+            >
+              <span>NAS</span>
+              <span className="rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                New
+              </span>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-neutral-400 transition-transform", menu === "nas" && "rotate-180")} />
+            </button>
+            <button
+              onClick={() => setMenu(menu === "charging" ? null : "charging")}
+              className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
+            >
+              <span>Charging</span>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-neutral-400 transition-transform", menu === "charging" && "rotate-180")} />
+            </button>
+            <button
+              onClick={() => setMenu(menu === "accessories" ? null : "accessories")}
+              className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
+            >
+              <span>Data &amp; Accessories</span>
+              <ChevronDown
+                className={cn("h-3.5 w-3.5 text-neutral-400 transition-transform", menu === "accessories" && "rotate-180")}
+              />
+            </button>
+            <Link href="/about" className="py-2 transition-colors hover:text-brand-emerald">
+              About
+            </Link>
+            <Link href="/contact" className="py-2 transition-colors hover:text-brand-emerald">
+              Support
+            </Link>
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-2 text-neutral-800 sm:gap-4">
+          <SearchOverlay />
+          <button
+            aria-label="Account"
+            className="hidden h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 hover:text-brand-emerald sm:flex"
+          >
+            <User className="h-5 w-5" />
+          </button>
+          <Link
+            href="/cart"
+            aria-label="Cart"
+            className="relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 hover:text-brand-emerald"
+          >
+            <ShoppingBag className="h-5 w-5" />
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
+              0
+            </span>
+          </Link>
+          <button
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex h-9 w-9 items-center justify-center rounded-full text-gray-700 hover:text-black lg:hidden"
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* NAS mega menu */}
+      <MegaMenuPanel open={menu === "nas"}>
+        <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
+          <div className="flex items-center gap-6">
+            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Storage Category:</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setNasTab("entry")}
+                className={cn(
+                  "rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all",
+                  nasTab === "entry" ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+                )}
+              >
+                Entry-Level
+              </button>
+              <button
+                onClick={() => setNasTab("performance")}
+                className={cn(
+                  "rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all",
+                  nasTab === "performance" ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+                )}
+              >
+                Performance &amp; Business
+              </button>
+            </div>
+          </div>
+          <Link href="/products?category=nas" onClick={() => setMenu(null)} className="text-xs font-semibold text-brand-emerald hover:underline">
+            View All Storage Drives &amp; Enclosures &rarr;
+          </Link>
+        </div>
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-8">
+            <div className={cn("grid gap-4", nasTab === "entry" ? "grid-cols-2" : "grid-cols-3")}>
+              {(nasTab === "entry" ? nasEntry : nasPerformance).map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/products/${p.slug}`}
+                  onClick={() => setMenu(null)}
+                  className="group flex flex-col justify-between rounded-2xl border border-gray-200 bg-[#fbfbfd] p-4 transition-all hover:border-brand-emerald hover:shadow-md"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800">
+                      {p.badge ?? "In Stock"}
+                    </span>
+                    <span className="text-xs font-bold text-neutral-900">{formatAed(p.price)}</span>
+                  </div>
+                  <ProductArt kind={p.visual} className="my-4 h-24" />
+                  <div>
+                    <h4 className="text-sm font-bold text-neutral-900 transition-colors group-hover:text-brand-emerald">
+                      {p.name}
+                    </h4>
+                    <p className="mt-1 line-clamp-2 text-[11px] text-neutral-500">{p.tagline}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <SpotlightCard product={nasSpotlight} onNavigate={() => setMenu(null)} />
+        </div>
+      </MegaMenuPanel>
+
+      {/* Charging mega menu */}
+      <MegaMenuPanel open={menu === "charging"}>
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-8 grid grid-cols-3 gap-6">
+            {chargingColumns.map((col) => (
+              <div key={col.title}>
+                <h4 className="mb-3 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
+                  {col.title}
+                </h4>
+                <ul className="space-y-2.5 text-xs text-neutral-600">
+                  {col.items.map((item) => (
+                    <li key={item.id}>
+                      <Link href={`/products/${item.slug}`} onClick={() => setMenu(null)} className="block hover:text-brand-emerald">
+                        {item.name.replace("Celibery ", "")}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <Link
+                      href={`/products?category=${col.items[0]?.categorySlug ?? "chargers"}`}
+                      onClick={() => setMenu(null)}
+                      className="block pt-1 font-semibold text-brand-emerald hover:underline"
+                    >
+                      View All &rarr;
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
+          <SpotlightCard product={chargingSpotlight} onNavigate={() => setMenu(null)} light />
+        </div>
+      </MegaMenuPanel>
+
+      {/* Data & Accessories mega menu */}
+      <MegaMenuPanel open={menu === "accessories"}>
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-8 grid grid-cols-3 gap-6">
+            {accessoriesColumns.map((col) => (
+              <div key={col.title}>
+                <h4 className="mb-3 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
+                  {col.title}
+                </h4>
+                <ul className="space-y-2.5 text-xs text-neutral-600">
+                  {col.items.map((item) => (
+                    <li key={item.id}>
+                      <Link href={`/products/${item.slug}`} onClick={() => setMenu(null)} className="block hover:text-brand-emerald">
+                        {item.name.replace("Celibery ", "")}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <Link
+                      href={`/products?category=${col.items[0]?.categorySlug ?? "hubs-docks"}`}
+                      onClick={() => setMenu(null)}
+                      className="block pt-1 font-semibold text-brand-emerald hover:underline"
+                    >
+                      View All &rarr;
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
+          <SpotlightCard product={accessoriesSpotlight} onNavigate={() => setMenu(null)} light />
+        </div>
+      </MegaMenuPanel>
+
+      {/* Mobile menu */}
       <div
         className={cn(
           "grid overflow-hidden bg-white transition-all duration-300 ease-out lg:hidden",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+          mobileOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
       >
         <div className="overflow-hidden">
-          <Container className="flex flex-col gap-1 pb-6 pt-2">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-ink-800 transition-colors hover:bg-ink-100"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="flex flex-col gap-1 px-4 pb-6 pt-2 sm:px-6">
+            <Link href="/products?category=nas" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
+              NAS
+            </Link>
+            <Link href="/products?category=power-banks" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
+              Charging
+            </Link>
+            <Link href="/products?category=hubs-docks" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
+              Data &amp; Accessories
+            </Link>
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
+              About
+            </Link>
             <Link
               href="/contact"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-xl bg-ink-950 px-4 py-3.5 text-center text-base font-medium text-white"
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 rounded-xl bg-neutral-900 px-4 py-3.5 text-center text-base font-medium text-white"
             >
-              Contact Support
+              Support
             </Link>
-          </Container>
+          </nav>
         </div>
       </div>
     </header>
+  );
+}
+
+function MegaMenuPanel({ open, children }: { open: boolean; children: React.ReactNode }) {
+  return (
+    <div
+      className={cn(
+        "absolute inset-x-0 top-full z-50 hidden origin-top border-b border-gray-200 bg-white shadow-2xl transition-all duration-200 lg:block",
+        open ? "visible opacity-100" : "invisible opacity-0",
+      )}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</div>
+    </div>
+  );
+}
+
+function SpotlightCard({
+  product,
+  onNavigate,
+  light,
+}: {
+  product: (typeof products)[number];
+  onNavigate: () => void;
+  light?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "col-span-4 flex flex-col justify-between rounded-2xl border p-6 shadow-md",
+        light
+          ? "border-gray-200 bg-gradient-to-br from-neutral-50 to-neutral-100"
+          : "border-neutral-800 bg-gradient-to-br from-neutral-900 via-neutral-950 to-black text-white",
+      )}
+    >
+      <div>
+        <span
+          className={cn(
+            "rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest",
+            light ? "bg-brand-green/20 text-brand-emerald" : "border border-brand-green/30 bg-brand-green/10 text-brand-green",
+          )}
+        >
+          Featured Highlight
+        </span>
+        <h3 className={cn("mt-3 text-xl font-extrabold", light ? "text-neutral-900" : "text-white")}>{product.name}</h3>
+        <p className={cn("mt-2 text-xs leading-relaxed", light ? "text-neutral-600" : "text-neutral-300")}>{product.tagline}</p>
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className={cn("text-2xl font-bold", light ? "text-neutral-900" : "text-white")}>{formatAed(product.price)}</span>
+          {product.compareAtPrice && (
+            <span className={cn("text-xs line-through", light ? "text-neutral-400" : "text-neutral-400")}>
+              {formatAed(product.compareAtPrice)}
+            </span>
+          )}
+        </div>
+      </div>
+      <ProductArt kind={product.visual} className="my-4 h-28" />
+      <div className="flex items-center gap-3">
+        <Link
+          href={`/products/${product.slug}`}
+          onClick={onNavigate}
+          className={cn(
+            "flex-1 rounded-xl py-2.5 text-center text-xs font-bold transition-colors",
+            light ? "bg-neutral-900 text-white hover:bg-black" : "bg-brand-green text-black hover:bg-brand-emerald",
+          )}
+        >
+          {light ? "Shop Now" : "Buy Now"}
+        </Link>
+      </div>
+    </div>
   );
 }

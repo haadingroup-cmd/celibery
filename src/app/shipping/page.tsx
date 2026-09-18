@@ -15,16 +15,16 @@ export default function ShippingPage() {
       </PolicySection>
 
       <PolicySection title="Shipping rates and timelines">
-        <div className="overflow-hidden rounded-2xl border border-ink-100">
+        <div className="overflow-hidden rounded-2xl border border-neutral-100">
           <table className="w-full text-left text-sm">
-            <thead className="bg-ink-50 text-ink-500">
+            <thead className="bg-neutral-50 text-neutral-500">
               <tr>
                 <th className="px-4 py-3 font-medium">Region</th>
                 <th className="px-4 py-3 font-medium">Delivery time</th>
                 <th className="px-4 py-3 font-medium">Cost</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink-100">
+            <tbody className="divide-y divide-neutral-100">
               <tr>
                 <td className="px-4 py-3">United States</td>
                 <td className="px-4 py-3">2–4 business days</td>

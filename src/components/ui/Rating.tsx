@@ -22,13 +22,13 @@ export function Rating({
           return (
             <Star
               key={i}
-              className={cn(starSize, filled ? "fill-brand-500 text-brand-500" : "fill-ink-200 text-ink-200")}
+              className={cn(starSize, filled ? "fill-brand-green text-brand-green" : "fill-neutral-200 text-neutral-200")}
             />
           );
         })}
       </div>
       {count !== undefined && (
-        <span className="text-xs text-ink-500">
+        <span className="text-xs text-neutral-500">
           {value.toFixed(1)} · {count.toLocaleString()} reviews
         </span>
       )}

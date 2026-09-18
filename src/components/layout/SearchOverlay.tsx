@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
-import { products } from "@/data/products";
-import { formatPrice } from "@/lib/utils";
+import { formatAed, products } from "@/data/products";
+import { ProductArt } from "@/components/ui/ProductArt";
 
 export function SearchOverlay() {
   const [open, setOpen] = useState(false);
@@ -54,13 +54,13 @@ export function SearchOverlay() {
       <button
         aria-label="Search"
         onClick={() => setOpen(true)}
-        className="flex h-10 w-10 items-center justify-center rounded-full text-ink-700 transition-colors hover:bg-ink-100"
+        className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-700 transition-colors hover:bg-neutral-100"
       >
         <Search className="h-5 w-5" />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center bg-ink-950/50 px-4 pt-20 backdrop-blur-sm sm:pt-28">
+        <div className="fixed inset-0 z-[100] flex flex-col items-center bg-neutral-900/50 px-4 pt-20 backdrop-blur-sm sm:pt-28">
           <button
             aria-label="Close search"
             onClick={close}
@@ -68,19 +68,19 @@ export function SearchOverlay() {
             tabIndex={-1}
           />
           <div className="relative w-full max-w-xl overflow-hidden rounded-3xl bg-white shadow-2xl">
-            <div className="flex items-center gap-3 border-b border-ink-100 px-5 py-4">
-              <Search className="h-5 w-5 flex-shrink-0 text-ink-400" />
+            <div className="flex items-center gap-3 border-b border-neutral-100 px-5 py-4">
+              <Search className="h-5 w-5 flex-shrink-0 text-neutral-400" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search chargers, cables, power banks..."
-                className="w-full text-base text-ink-950 placeholder:text-ink-400 focus:outline-none"
+                className="w-full text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
               />
               <button
                 aria-label="Close search"
                 onClick={close}
-                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-ink-400 hover:bg-ink-100 hover:text-ink-950"
+                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-100 hover:text-neutral-900"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -88,12 +88,12 @@ export function SearchOverlay() {
 
             <div className="max-h-[60vh] overflow-y-auto p-2">
               {query.trim().length === 0 && (
-                <p className="px-4 py-8 text-center text-sm text-ink-400">
+                <p className="px-4 py-8 text-center text-sm text-neutral-400">
                   Start typing to search the catalog.
                 </p>
               )}
               {query.trim().length > 0 && results.length === 0 && (
-                <p className="px-4 py-8 text-center text-sm text-ink-400">
+                <p className="px-4 py-8 text-center text-sm text-neutral-400">
                   No products match &ldquo;{query}&rdquo;.
                 </p>
               )}
@@ -102,17 +102,17 @@ export function SearchOverlay() {
                   key={product.id}
                   href={`/products/${product.slug}`}
                   onClick={close}
-                  className="flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors hover:bg-ink-50"
+                  className="flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors hover:bg-neutral-50"
                 >
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-                    <product.icon className="h-5 w-5" strokeWidth={1.6} />
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
+                    <ProductArt kind={product.visual} className="h-8 w-8" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink-950">{product.name}</p>
-                    <p className="truncate text-xs text-ink-500">{product.tagline}</p>
+                    <p className="truncate text-sm font-medium text-neutral-900">{product.name}</p>
+                    <p className="truncate text-xs text-neutral-500">{product.tagline}</p>
                   </div>
-                  <span className="flex-shrink-0 text-sm font-semibold text-ink-950">
-                    {formatPrice(product.price)}
+                  <span className="flex-shrink-0 text-sm font-semibold text-neutral-900">
+                    {formatAed(product.price)}
                   </span>
                 </Link>
               ))}
