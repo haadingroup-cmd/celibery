@@ -69,7 +69,7 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <section className="border-t border-ink-100 py-16 sm:py-20">
+      <section id="faq" className="scroll-mt-24 border-t border-ink-100 py-16 sm:py-20">
         <Container>
           <SectionHeading
             align="center"

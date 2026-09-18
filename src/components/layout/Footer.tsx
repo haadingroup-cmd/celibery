@@ -55,10 +55,10 @@ export function Footer() {
             <p>{site.address}</p>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-400">
-            <Link href="/contact" className="inline-flex items-center gap-1 transition-colors hover:text-white">
+            <Link href="/privacy" className="inline-flex items-center gap-1 transition-colors hover:text-white">
               Privacy Policy <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            <Link href="/contact" className="inline-flex items-center gap-1 transition-colors hover:text-white">
+            <Link href="/terms" className="inline-flex items-center gap-1 transition-colors hover:text-white">
               Terms of Service <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

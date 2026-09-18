@@ -35,9 +35,9 @@ export const footerLinks = {
   ],
   Support: [
     { label: "Contact Us", href: "/contact" },
-    { label: "Warranty", href: "/contact" },
-    { label: "Shipping & Returns", href: "/contact" },
-    { label: "FAQs", href: "/contact" },
+    { label: "Warranty", href: "/warranty" },
+    { label: "Shipping & Returns", href: "/shipping" },
+    { label: "FAQs", href: "/contact#faq" },
   ],
   Company: [
     { label: "About Celibery", href: "/about" },

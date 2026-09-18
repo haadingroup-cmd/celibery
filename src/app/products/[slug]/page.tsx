@@ -37,8 +37,33 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const category = getCategoryBySlug(product.categorySlug);
   const related = getRelatedProducts(product);
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    category: category?.name,
+    brand: { "@type": "Brand", name: "Celibery" },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: product.price,
+      availability: "https://schema.org/InStock",
+      url: `https://celibery.vercel.app/products/${product.slug}`,
+    },
+  };
+
   return (
     <div className="py-8 sm:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <Container>
         <nav className="flex items-center gap-1.5 text-sm text-ink-500">
           <Link href="/products" className="hover:text-ink-950">

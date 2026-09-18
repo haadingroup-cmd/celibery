@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X, Search, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { mainNav, site } from "@/data/site";
 import { Container } from "@/components/ui/Container";
+import { SearchOverlay } from "@/components/layout/SearchOverlay";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -55,12 +56,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-2">
-            <button
-              aria-label="Search"
-              className="hidden h-10 w-10 items-center justify-center rounded-full text-ink-700 transition-colors hover:bg-ink-100 sm:flex"
-            >
-              <Search className="h-5 w-5" />
-            </button>
+            <SearchOverlay />
             <Link
               href="/cart"
               aria-label="Cart"
