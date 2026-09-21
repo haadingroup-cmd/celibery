@@ -37,6 +37,7 @@
 
   --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
   --animate-hero-progress: hero-progress var(--hero-progress-duration, 6500ms) linear forwards;
+  --animate-fly-in: fly-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @keyframes pulse-glow {
     0%,
@@ -47,6 +48,17 @@
     50% {
       opacity: 0.9;
       transform: scale(1.06);
+    }
+  }
+
+  @keyframes fly-in {
+    0% {
+      opacity: 0;
+      transform: translate3d(60px, 60px, 0) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
