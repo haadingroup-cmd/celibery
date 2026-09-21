@@ -4,7 +4,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { site, footerColumns } from "@/data/site";
-import { InstagramIcon, XIcon, YoutubeIcon, TikTokIcon } from "@/components/icons/SocialIcons";
+import {
+  InstagramIcon,
+  FacebookIcon,
+  XIcon,
+  YoutubeIcon,
+  TikTokIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  SnapchatIcon,
+} from "@/components/icons/SocialIcons";
+
+const socialIcons = {
+  instagram: { icon: InstagramIcon, label: "Instagram" },
+  facebook: { icon: FacebookIcon, label: "Facebook" },
+  x: { icon: XIcon, label: "X" },
+  youtube: { icon: YoutubeIcon, label: "YouTube" },
+  tiktok: { icon: TikTokIcon, label: "TikTok" },
+  linkedin: { icon: LinkedinIcon, label: "LinkedIn" },
+  pinterest: { icon: PinterestIcon, label: "Pinterest" },
+  snapchat: { icon: SnapchatIcon, label: "Snapchat" },
+} as const;
 
 export function Footer() {
   const [submitted, setSubmitted] = useState(false);
@@ -52,24 +72,24 @@ export function Footer() {
               </form>
             )}
 
-            <div className="mt-6 flex items-center gap-2">
-              {[
-                { icon: InstagramIcon, href: site.social.instagram, label: "Instagram" },
-                { icon: XIcon, href: site.social.x, label: "X" },
-                { icon: YoutubeIcon, href: site.social.youtube, label: "YouTube" },
-                { icon: TikTokIcon, href: site.social.tiktok, label: "TikTok" },
-              ].map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              {Object.entries(site.social).map(([key, href]) => {
+                const entry = socialIcons[key as keyof typeof socialIcons];
+                if (!entry) return null;
+                const { icon: Icon, label } = entry;
+                return (
+                  <a
+                    key={key}
+                    href={href}
+                    aria-label={label}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

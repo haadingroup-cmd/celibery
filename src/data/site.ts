@@ -8,12 +8,16 @@ export const site = {
   address: "Dubai, United Arab Emirates",
   region: "United Arab Emirates (English)",
   currency: "AED",
+  whatsapp: "97140000000",
   social: {
     instagram: "https://instagram.com",
+    facebook: "https://facebook.com",
     x: "https://x.com",
     youtube: "https://youtube.com",
     tiktok: "https://tiktok.com",
-    facebook: "https://facebook.com",
+    linkedin: "https://linkedin.com",
+    pinterest: "https://pinterest.com",
+    snapchat: "https://snapchat.com",
   },
 };
 

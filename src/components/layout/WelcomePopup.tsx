@@ -16,7 +16,7 @@ export function WelcomePopup() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-50 sm:inset-x-auto sm:bottom-6 sm:right-6">
+    <div className="fixed inset-x-4 bottom-24 z-50 sm:inset-x-auto sm:bottom-28 sm:right-6">
       <div className="animate-fly-in relative flex w-full max-w-sm items-center gap-4 overflow-hidden rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl sm:p-5">
         <span className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-green/10 blur-2xl" />
 

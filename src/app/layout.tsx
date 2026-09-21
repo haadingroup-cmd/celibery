@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WelcomePopup } from "@/components/layout/WelcomePopup";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CartProvider } from "@/lib/cart-context";
 import { site } from "@/data/site";
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <WhatsAppButton />
           <WelcomePopup />
         </CartProvider>
       </body>
