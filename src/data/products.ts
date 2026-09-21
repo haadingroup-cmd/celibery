@@ -48,7 +48,10 @@ export type VisualKind =
   | "carCharger"
   | "tracker"
   | "audio"
-  | "mobileAccessory";
+  | "mobileAccessory"
+  | "speaker"
+  | "headphones"
+  | "powerbank";
 
 export type Product = {
   id: string;

@@ -5,38 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Pause, Play } from "lucide-react";
 import { heroSlides } from "@/data/heroSlides";
 import { CinematicPoster } from "@/components/ui/CinematicPoster";
+import { useVideoAvailability } from "@/hooks/useVideoAvailability";
+import { webmSrc } from "@/lib/video";
 import { cn } from "@/lib/utils";
 
 const SLIDE_DURATION_MS = 6500;
 
-function useVideoAvailability(sources: string[]) {
-  const [failed, setFailed] = useState<Record<number, boolean>>({});
-
-  useEffect(() => {
-    let cancelled = false;
-    sources.forEach((src, i) => {
-      const probe = document.createElement("video");
-      const markFailed = () => {
-        if (!cancelled) setFailed((prev) => ({ ...prev, [i]: true }));
-      };
-      probe.addEventListener("error", markFailed);
-      probe.preload = "metadata";
-      probe.src = src;
-      probe.load();
-    });
-    return () => {
-      cancelled = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return failed;
-}
-
 export function HeroCarousel() {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const videoFailed = useVideoAvailability(heroSlides.map((s) => s.videoSrc));
+  const videoFailed = useVideoAvailability(heroSlides.map((s) => [webmSrc(s.videoSrc), s.videoSrc]));
   const [progressKey, setProgressKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -78,12 +56,14 @@ export function HeroCarousel() {
               <CinematicPoster kind={slide.visual} className="opacity-0" />
               <video
                 className="absolute inset-0 h-full w-full object-cover"
-                src={slide.videoSrc}
                 autoPlay={i === active && playing}
                 muted
                 loop
                 playsInline
-              />
+              >
+                <source src={webmSrc(slide.videoSrc)} type="video/webm" />
+                <source src={slide.videoSrc} type="video/mp4" />
+              </video>
             </>
           )}
         </div>

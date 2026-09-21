@@ -214,6 +214,42 @@ function MobileAccessory() {
   );
 }
 
+function Speaker() {
+  return (
+    <svg viewBox="0 0 100 170" fill="none" className="h-full w-full">
+      <path d="M35 8 C35 -8, 65 -8, 65 8 L65 22 L35 22 Z" fill="none" stroke="#94a3b8" strokeWidth="6" strokeLinecap="round" />
+      <rect x="15" y="20" width="70" height="140" rx="32" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <circle cx="50" cy="90" r="26" fill="#0f172a" stroke="#334155" strokeWidth="2" />
+      <circle cx="50" cy="90" r="10" fill="#00cc66" opacity="0.5" />
+      <rect x="40" y="35" width="20" height="4" rx="2" fill="#00cc66" />
+    </svg>
+  );
+}
+
+function Headphones() {
+  return (
+    <svg viewBox="0 0 140 110" fill="none" className="h-full w-full">
+      <path d="M20 65 C20 15, 120 15, 120 65" fill="none" stroke="#1e293b" strokeWidth="8" strokeLinecap="round" />
+      <rect x="8" y="55" width="26" height="42" rx="13" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <rect x="106" y="55" width="26" height="42" rx="13" fill="#1e293b" stroke="#00cc66" strokeWidth="2" />
+      <circle cx="21" cy="76" r="7" fill="#0f172a" />
+      <circle cx="119" cy="76" r="7" fill="#0f172a" />
+    </svg>
+  );
+}
+
+function Powerbank() {
+  return (
+    <svg viewBox="0 0 100 170" fill="none" className="h-full w-full">
+      <rect x="12" y="10" width="76" height="150" rx="18" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <rect x="26" y="26" width="48" height="30" rx="8" fill="#0f172a" />
+      <text x="50" y="46" fill="#00cc66" fontSize="13" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">69%</text>
+      <rect x="32" y="66" width="36" height="66" rx="4" fill="#0f172a" />
+      <circle cx="50" cy="150" r="3" fill="#00cc66" />
+    </svg>
+  );
+}
+
 const registry: Record<VisualKind, () => React.JSX.Element> = {
   nas2bay: Nas2Bay,
   nas4bay: Nas4Bay,
@@ -233,6 +269,9 @@ const registry: Record<VisualKind, () => React.JSX.Element> = {
   tracker: Tracker,
   audio: Audio,
   mobileAccessory: MobileAccessory,
+  speaker: Speaker,
+  headphones: Headphones,
+  powerbank: Powerbank,
 };
 
 export function ProductArt({ kind, className }: { kind: VisualKind; className?: string }) {

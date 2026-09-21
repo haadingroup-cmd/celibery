@@ -1,33 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { videoShowcase } from "@/data/videoShowcase";
 import { CinematicPoster } from "@/components/ui/CinematicPoster";
+import { useVideoAvailability } from "@/hooks/useVideoAvailability";
+import { webmSrc } from "@/lib/video";
 import { cn } from "@/lib/utils";
 
-function useVideoAvailable(src: string) {
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    const probe = document.createElement("video");
-    probe.addEventListener("error", () => {
-      if (!cancelled) setFailed(true);
-    });
-    probe.preload = "metadata";
-    probe.src = src;
-    probe.load();
-    return () => {
-      cancelled = true;
-    };
-  }, [src]);
-
-  return failed;
-}
-
-function ShowcaseTile({ video }: { video: (typeof videoShowcase)[number] }) {
-  const failed = useVideoAvailable(video.videoSrc);
+function ShowcaseTile({ video, failed }: { video: (typeof videoShowcase)[number]; failed: boolean }) {
   const [playing, setPlaying] = useState(true);
 
   return (
@@ -40,12 +21,14 @@ function ShowcaseTile({ video }: { video: (typeof videoShowcase)[number] }) {
           <video
             key={playing ? "playing" : "paused"}
             className="absolute inset-0 h-full w-full object-cover"
-            src={video.videoSrc}
             autoPlay={playing}
             muted
             loop
             playsInline
-          />
+          >
+            <source src={webmSrc(video.videoSrc)} type="video/webm" />
+            <source src={video.videoSrc} type="video/mp4" />
+          </video>
         </>
       )}
 
@@ -71,6 +54,8 @@ function ShowcaseTile({ video }: { video: (typeof videoShowcase)[number] }) {
 }
 
 export function VideoShowcase() {
+  const videoFailed = useVideoAvailability(videoShowcase.map((v) => [webmSrc(v.videoSrc), v.videoSrc]));
+
   return (
     <section className="bg-black py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,8 +68,8 @@ export function VideoShowcase() {
         </h2>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {videoShowcase.map((video) => (
-            <ShowcaseTile key={video.id} video={video} />
+          {videoShowcase.map((video, i) => (
+            <ShowcaseTile key={video.id} video={video} failed={!!videoFailed[i]} />
           ))}
         </div>
       </div>
