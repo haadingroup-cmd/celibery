@@ -9,6 +9,7 @@ import { products, getProductBySlug } from "@/data/products";
 import { ProductArt } from "@/components/ui/ProductArt";
 import { formatAed } from "@/data/products";
 import { SearchOverlay } from "@/components/layout/SearchOverlay";
+import { useCart } from "@/lib/cart-context";
 import { cn } from "@/lib/utils";
 
 type MenuKey = "nas" | "charging" | "accessories" | null;
@@ -38,6 +39,7 @@ export function Header() {
   const [menu, setMenu] = useState<MenuKey>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [nasTab, setNasTab] = useState<"entry" | "performance">("entry");
+  const { totalCount } = useCart();
 
   useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
@@ -134,13 +136,15 @@ export function Header() {
           </button>
           <Link
             href="/cart"
-            aria-label="Cart"
+            aria-label={`Cart${totalCount > 0 ? `, ${totalCount} items` : ""}`}
             className="relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 hover:text-brand-emerald"
           >
             <ShoppingBag className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
-              0
-            </span>
+            {totalCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
+                {totalCount > 99 ? "99+" : totalCount}
+              </span>
+            )}
           </Link>
           <button
             aria-label={mobileOpen ? "Close menu" : "Open menu"}

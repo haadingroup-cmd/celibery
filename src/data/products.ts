@@ -51,7 +51,8 @@ export type VisualKind =
   | "mobileAccessory"
   | "speaker"
   | "headphones"
-  | "powerbank";
+  | "powerbank"
+  | "ganCharger";
 
 export type Product = {
   id: string;
@@ -72,6 +73,116 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    id: "real1",
+    slug: "cel-96s-speaker",
+    name: "Celibery CEL-96S Bluetooth Speaker",
+    series: "other",
+    categorySlug: "audio",
+    price: 249,
+    tagline: "16W powerful sound, up to 16 hours playtime, IP67 water & dust resistant.",
+    description:
+      "The CEL-96S packs room-filling 16W sound into a rugged, pocketable body. IP67-rated against water and dust, tuned for a full day of play on a single charge, and paired instantly over stable Bluetooth 5.4 — built for wherever the moment takes you.",
+    badge: "Flagship",
+    visual: "speaker",
+    rating: 4.8,
+    reviewCount: 214,
+    features: [
+      "16W powerful, room-filling sound",
+      "Up to 16 hours of continuous playtime",
+      "IP67 water & dust resistant",
+      "Stable Bluetooth 5.4 pairing",
+    ],
+    specs: [
+      { label: "Output", value: "16W" },
+      { label: "Battery life", value: "Up to 16 hours" },
+      { label: "Water/dust rating", value: "IP67" },
+      { label: "Connectivity", value: "Bluetooth 5.4" },
+      { label: "Charging", value: "USB-C" },
+    ],
+  },
+  {
+    id: "real2",
+    slug: "over-ear-headphones",
+    name: "Celibery Over-Ear Wireless Headphones",
+    series: "other",
+    categorySlug: "audio",
+    price: 399,
+    tagline: "Premium over-ear comfort built for all-day listening.",
+    description:
+      "Plush memory-foam earcushions and a foldable, travel-ready frame make these the headphones you forget you're wearing. Wireless freedom with crisp highs and deep, controlled bass — tuned for music, calls, and everything in between.",
+    badge: "New",
+    visual: "headphones",
+    rating: 4.7,
+    reviewCount: 132,
+    features: [
+      "Plush memory-foam earcushions",
+      "All-day comfort, foldable design",
+      "Wireless freedom, no tangled cables",
+      "Crisp highs, deep controlled bass",
+    ],
+    specs: [
+      { label: "Type", value: "Over-ear wireless" },
+      { label: "Drivers", value: "40mm dynamic" },
+      { label: "Battery life", value: "Up to 30 hours" },
+      { label: "Connectivity", value: "Bluetooth 5.3" },
+      { label: "Design", value: "Foldable, travel-ready" },
+    ],
+  },
+  {
+    id: "real3",
+    slug: "65w-gan-charger",
+    name: "Celibery 65W GaN Wall Charger",
+    series: "other",
+    categorySlug: "chargers",
+    price: 199,
+    tagline: "65W GaN chargers built for speed.",
+    description:
+      "Third-generation GaN internals mean full 65W output from a charger small enough to disappear in your bag. Multi-port simultaneous charging, safety-certified and thermal-protected, for a laptop and phone at full speed together.",
+    badge: "New",
+    visual: "ganCharger",
+    rating: 4.8,
+    reviewCount: 176,
+    features: [
+      "65W GaN III fast charging",
+      "Multi-port simultaneous output",
+      "Ultra-compact, travel-ready",
+      "Safety certified, thermal protected",
+    ],
+    specs: [
+      { label: "Max output", value: "65W" },
+      { label: "Ports", value: "2× USB-C, 1× USB-A" },
+      { label: "Chipset", value: "GaN III" },
+      { label: "Input", value: "100–240V" },
+    ],
+  },
+  {
+    id: "real4",
+    slug: "power-bank-live-display",
+    name: "Celibery Power Bank with Built-In Cables & Display",
+    series: "other",
+    categorySlug: "power-banks",
+    price: 259,
+    tagline: "Built-in cables and a live display — never caught without a charge.",
+    description:
+      "Two cables live inside the shell, always with you and never lost in the bottom of a bag. A live percentage display shows exactly how much charge is left, and 22.5W super-fast output means less time waiting and more time moving.",
+    badge: "New",
+    visual: "powerbank",
+    rating: 4.7,
+    reviewCount: 98,
+    features: [
+      "22.5W super-fast charging",
+      "Built-in USB-C & Lightning cables",
+      "Live percentage display",
+      "Travel-ready compact body",
+    ],
+    specs: [
+      { label: "Capacity", value: "10,000mAh" },
+      { label: "Output", value: "22.5W max" },
+      { label: "Display", value: "Live LED percentage" },
+      { label: "Cables", value: "Built-in USB-C + Lightning" },
+    ],
+  },
   {
     id: "p1",
     slug: "nasync-dh2300",

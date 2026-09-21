@@ -112,7 +112,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             <div className="h-px w-full bg-neutral-100" />
 
-            <AddToCart />
+            <AddToCart product={product} />
 
             <div className="grid grid-cols-1 gap-3 rounded-2xl bg-neutral-50 p-4 sm:grid-cols-3 sm:p-5">
               <div className="flex items-center gap-2.5 text-sm text-neutral-700">

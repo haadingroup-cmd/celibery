@@ -12,7 +12,7 @@ function ShowcaseTile({ video, failed }: { video: (typeof videoShowcase)[number]
   const [playing, setPlaying] = useState(true);
 
   return (
-    <div className="group relative aspect-video overflow-hidden rounded-2xl bg-black shadow-lg">
+    <div className="group relative aspect-video overflow-hidden rounded-3xl bg-black shadow-xl">
       {failed ? (
         <CinematicPoster kind={video.visual} />
       ) : (
@@ -38,16 +38,16 @@ function ShowcaseTile({ video, failed }: { video: (typeof videoShowcase)[number]
         aria-label={playing ? "Pause video" : "Play video"}
         onClick={() => setPlaying((p) => !p)}
         className={cn(
-          "absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white backdrop-blur transition-all",
+          "absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white backdrop-blur transition-all",
           "opacity-0 group-hover:opacity-100 focus-visible:opacity-100",
         )}
       >
-        {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 translate-x-0.5" />}
+        {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-0.5" />}
       </button>
 
-      <div className="absolute inset-x-0 bottom-0 p-5">
-        <h3 className="text-base font-bold text-white sm:text-lg">{video.title}</h3>
-        <p className="mt-1 text-xs text-neutral-300 sm:text-sm">{video.caption}</p>
+      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+        <h3 className="text-lg font-bold text-white sm:text-xl">{video.title}</h3>
+        <p className="mt-1 text-sm text-neutral-300">{video.caption}</p>
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ export function VideoShowcase() {
           Real setups, real speed — no scripts, no filters.
         </h2>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {videoShowcase.map((video, i) => (
             <ShowcaseTile key={video.id} video={video} failed={!!videoFailed[i]} />
           ))}

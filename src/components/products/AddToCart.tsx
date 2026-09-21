@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { Check, Minus, Plus, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useCart } from "@/lib/cart-context";
+import type { Product } from "@/data/products";
 
-export function AddToCart() {
+export function AddToCart({ product }: { product: Product }) {
+  const { addItem } = useCart();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -33,7 +36,9 @@ export function AddToCart() {
         size="lg"
         className="flex-1"
         onClick={() => {
+          addItem({ id: product.id, slug: product.slug, name: product.name, price: product.price, visual: product.visual }, qty);
           setAdded(true);
+          setQty(1);
           setTimeout(() => setAdded(false), 2200);
         }}
       >

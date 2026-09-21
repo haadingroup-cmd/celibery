@@ -238,6 +238,20 @@ function Headphones() {
   );
 }
 
+function GanCharger() {
+  return (
+    <svg viewBox="0 0 100 120" fill="none" className="h-full w-full">
+      <rect x="15" y="10" width="70" height="70" rx="14" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <circle cx="50" cy="30" r="9" fill="none" stroke="#00cc66" strokeWidth="3" strokeDasharray="4 3" />
+      <text x="50" y="34" fill="#00cc66" fontSize="8" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">65W</text>
+      <rect x="34" y="50" width="10" height="4" rx="1" fill="#94a3b8" />
+      <rect x="56" y="50" width="10" height="4" rx="1" fill="#94a3b8" />
+      <rect x="45" y="80" width="4" height="14" fill="#94a3b8" />
+      <rect x="51" y="80" width="4" height="14" fill="#94a3b8" />
+    </svg>
+  );
+}
+
 function Powerbank() {
   return (
     <svg viewBox="0 0 100 170" fill="none" className="h-full w-full">
@@ -272,6 +286,7 @@ const registry: Record<VisualKind, () => React.JSX.Element> = {
   speaker: Speaker,
   headphones: Headphones,
   powerbank: Powerbank,
+  ganCharger: GanCharger,
 };
 
 export function ProductArt({ kind, className }: { kind: VisualKind; className?: string }) {

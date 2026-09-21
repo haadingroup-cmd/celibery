@@ -1,13 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Check, ShoppingBag } from "lucide-react";
 import type { Product } from "@/data/products";
 import { formatAed, getCategoryBySlug } from "@/data/products";
 import { ProductArt } from "@/components/ui/ProductArt";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
+import { useCart } from "@/lib/cart-context";
+import { cn } from "@/lib/utils";
 
 export function ProductCard({ product }: { product: Product }) {
   const category = getCategoryBySlug(product.categorySlug);
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
 
   return (
     <Link
@@ -24,6 +31,22 @@ export function ProductCard({ product }: { product: Product }) {
         <span className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral-900 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100">
           <ArrowUpRight className="h-4 w-4" />
         </span>
+        <button
+          aria-label={`Add ${product.name} to bag`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addItem({ id: product.id, slug: product.slug, name: product.name, price: product.price, visual: product.visual }, 1);
+            setAdded(true);
+            setTimeout(() => setAdded(false), 1800);
+          }}
+          className={cn(
+            "absolute bottom-2 right-2 flex h-9 w-9 items-center justify-center rounded-full shadow-md transition-all duration-300",
+            added ? "bg-brand-green text-black" : "bg-neutral-900 text-white opacity-0 hover:bg-black group-hover:opacity-100",
+          )}
+        >
+          {added ? <Check className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />}
+        </button>
       </div>
 
       <div className="mt-4 flex flex-1 flex-col gap-1.5">
