@@ -11,6 +11,10 @@
   --color-brand-gray: #6b7280;
   --color-brand-light: #f5f7f9;
   --color-brand-border: #e5e7eb;
+
+  /* Logo-matched teal — reserved for the cinematic hero/video sections */
+  --color-teal-glow: #02b9c6;
+  --color-teal-glow-light: #4fe0e8;
 }
 
 @theme inline {
@@ -24,9 +28,36 @@
   --color-brand-light: var(--color-brand-light);
   --color-brand-border: var(--color-brand-border);
 
+  --color-teal-glow: var(--color-teal-glow);
+  --color-teal-glow-light: var(--color-teal-glow-light);
+
   --font-sans: var(--font-body);
 
   --container-8xl: 90rem;
+
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-hero-progress: hero-progress var(--hero-progress-duration, 6500ms) linear forwards;
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes hero-progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
 }
 
 html {

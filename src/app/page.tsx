@@ -1,5 +1,6 @@
-import { Hero } from "@/components/home/Hero";
+import { HeroCarousel } from "@/components/home/HeroCarousel";
 import { SignatureSeries } from "@/components/home/SignatureSeries";
+import { VideoShowcase } from "@/components/home/VideoShowcase";
 import { ProductLineupPills } from "@/components/home/ProductLineupPills";
 import { MadeToMatchWorld } from "@/components/home/MadeToMatchWorld";
 import { DrivenByInnovation } from "@/components/home/DrivenByInnovation";
@@ -12,8 +13,9 @@ import { QuickServicesRow } from "@/components/home/QuickServicesRow";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HeroCarousel />
       <SignatureSeries />
+      <VideoShowcase />
       <ProductLineupPills />
       <MadeToMatchWorld />
       <DrivenByInnovation />
