@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { site, footerColumns } from "@/data/site";
 import { InstagramIcon, XIcon, YoutubeIcon, TikTokIcon } from "@/components/icons/SocialIcons";
@@ -18,6 +19,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 border-b border-neutral-800 pb-16 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
           <div className="sm:col-span-2 lg:col-span-1">
+            <Image src="/logo.png" alt={site.name} width={2000} height={674} className="mb-4 h-8 w-auto" />
             <h3 className="mb-2 text-xl font-bold tracking-tight text-white">{site.tagline}</h3>
             <p className="mb-5 text-xs text-neutral-400">
               Get exclusive updates, product launches, special offers, and expert tips delivered straight to your

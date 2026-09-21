@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, ShoppingBag, User, X } from "lucide-react";
 import { site } from "@/data/site";
@@ -83,11 +84,8 @@ export function Header() {
 
       <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center gap-1" onClick={() => setMenu(null)}>
-            <span className="select-none text-3xl font-extrabold tracking-tighter text-black uppercase">
-              {site.name}
-            </span>
-            <span className="mb-3 h-2 w-2 rounded-full bg-brand-green" />
+          <Link href="/" className="flex items-center" onClick={() => setMenu(null)}>
+            <Image src="/logo.png" alt={site.name} width={2000} height={674} priority className="h-8 w-auto sm:h-9" />
           </Link>
 
           <nav className="hidden items-center gap-8 text-[15px] font-medium text-neutral-800 lg:flex">

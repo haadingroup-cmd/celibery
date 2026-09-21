@@ -1,9 +1,14 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+export default async function OgImage() {
+  const logoBuffer = await readFile(join(process.cwd(), "public", "logo.png"));
+  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -14,35 +19,19 @@ export default function OgImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #0a3327 0%, #06211a 100%)",
+          background: "linear-gradient(135deg, #0b2e33 0%, #051417 100%)",
           fontFamily: "sans-serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 64,
-            height: 64,
-            borderRadius: 16,
-            background: "#17925f",
-            color: "#f1faf5",
-            fontSize: 34,
-            fontWeight: 700,
-            marginBottom: 40,
-          }}
-        >
-          C
+        <img src={logoSrc} alt="Celibery" width={260} height={88} style={{ marginBottom: 48 }} />
+        <div style={{ display: "flex", fontSize: 60, fontWeight: 700, color: "#ffffff", lineHeight: 1.15 }}>
+          Smart Tech for
         </div>
-        <div style={{ display: "flex", fontSize: 68, fontWeight: 700, color: "#ffffff", lineHeight: 1.1 }}>
-          Power, engineered
+        <div style={{ display: "flex", fontSize: 60, fontWeight: 700, color: "#ffffff", lineHeight: 1.15 }}>
+          Smarter Living
         </div>
-        <div style={{ display: "flex", fontSize: 68, fontWeight: 700, color: "#ffffff", lineHeight: 1.1 }}>
-          to disappear.
-        </div>
-        <div style={{ display: "flex", fontSize: 28, color: "#a9e8c6", marginTop: 28 }}>
-          Celibery — GaN chargers, cables & power banks
+        <div style={{ display: "flex", fontSize: 28, color: "#7fd8e0", marginTop: 28 }}>
+          Celibery — NAS storage, GaN chargers & docks
         </div>
       </div>
     ),
