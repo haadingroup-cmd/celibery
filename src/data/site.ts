@@ -82,25 +82,29 @@ export const mediaVoices = [
 
 export const proReviews = [
   {
-    handle: "@Tech Master",
-    quote:
-      "Could this magnetic battery pack replace the Apple MagSafe? Compact, sleek, and stays icy cold on the desk.",
+    handle: "@Sara_ontheroad",
+    quote: "Took the CEL-96S camping for a week — IP67 is no joke, survived rain and sand and still sounds huge.",
     tone: "pink",
+    /** Drop an mp4 at this path in /public/videos/ to go live automatically. */
+    videoSrc: "/videos/review-speaker.mp4",
   },
   {
-    handle: "@Omardizer",
-    quote: "Celibery Uno Series features a cute, eye-catching design and simplifies your daily life remarkably.",
+    handle: "@DeskSetupDaily",
+    quote: "Wearing the Celibery over-ears through 9-hour workdays and they never once dig in. Genuinely comfortable.",
     tone: "orange",
+    videoSrc: "/videos/review-headphones.mp4",
   },
   {
-    handle: "@Badr_hi",
-    quote: "Celibery Nexode 300W powers 5 devices at once. The ultimate desktop power station for heavy setups.",
+    handle: "@TechCarryOn",
+    quote: "This 65W GaN charger replaced three bricks in my bag. Charges my laptop and phone together, stays cool.",
     tone: "slate",
+    videoSrc: "/videos/review-charger.mp4",
   },
   {
-    handle: "@Mohamed Hakim",
-    quote: "Celibery Uno 65W with smart expression screen gives real-time feedback with reliable surge safety!",
+    handle: "@Minimal.Packer",
+    quote: "Built-in cables mean I stopped losing charging cords in my bag. The live display matters more than I expected.",
     tone: "indigo",
+    videoSrc: "/videos/review-powerbank.mp4",
   },
 ];
 
