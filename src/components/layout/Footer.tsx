@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { site, footerColumns } from "@/data/site";
+import { footerLabels } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 import {
   InstagramIcon,
   FacebookIcon,
@@ -28,6 +30,8 @@ const socialIcons = {
 
 export function Footer() {
   const [submitted, setSubmitted] = useState(false);
+  const { lang, t } = useLanguage();
+  const fl = (label: string) => footerLabels[lang][label] ?? label;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,13 +45,10 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Image src="/logo.png" alt={site.name} width={2000} height={674} className="mb-4 h-8 w-auto" />
             <h3 className="mb-2 text-xl font-bold tracking-tight text-white">{site.tagline}</h3>
-            <p className="mb-5 text-xs text-neutral-400">
-              Get exclusive updates, product launches, special offers, and expert tips delivered straight to your
-              inbox.
-            </p>
+            <p className="mb-5 text-xs text-neutral-400">{t("footer.newsletterText")}</p>
             {submitted ? (
               <p className="rounded-lg border border-brand-green/30 bg-brand-green/10 px-4 py-2.5 text-xs font-medium text-brand-green">
-                You&apos;re subscribed — check your inbox for the welcome email.
+                {t("footer.subscribed")}
               </p>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -55,19 +56,19 @@ export function Footer() {
                   <input
                     type="email"
                     required
-                    placeholder="Enter your email address"
+                    placeholder={t("footer.emailPlaceholder")}
                     className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2.5 text-xs text-white placeholder:text-neutral-500 focus:border-brand-green focus:outline-none"
                   />
                   <button
                     type="submit"
                     className="flex-shrink-0 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-black transition-colors hover:bg-neutral-200"
                   >
-                    Sign up
+                    {t("footer.signUp")}
                   </button>
                 </div>
                 <label className="flex items-start gap-2 text-[11px] text-neutral-400">
                   <input type="checkbox" required className="mt-0.5" />
-                  <span>I agree to receive {site.name} news, offers, and product updates via email.</span>
+                  <span>{t("footer.agree").replace("{name}", site.name)}</span>
                 </label>
               </form>
             )}
@@ -95,12 +96,12 @@ export function Footer() {
 
           {Object.entries(footerColumns).map(([heading, links]) => (
             <div key={heading}>
-              <h4 className="mb-4 text-sm font-bold text-white">{heading}</h4>
+              <h4 className="mb-4 text-sm font-bold text-white">{fl(heading)}</h4>
               <ul className="space-y-2.5 text-xs">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link href={link.href} className="transition-colors hover:text-white">
-                      {link.label}
+                      {fl(link.label)}
                     </Link>
                   </li>
                 ))}
@@ -111,14 +112,14 @@ export function Footer() {
 
         <div className="flex flex-col gap-4 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
-            Copyright &copy; {new Date().getFullYear()} {site.name} Group Limited. All rights reserved.
+            Copyright &copy; {new Date().getFullYear()} {site.name} {t("footer.allRightsReserved")}
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link href="/privacy" className="transition-colors hover:text-white">
-              Privacy Policy
+              {t("footer.privacyPolicy")}
             </Link>
             <Link href="/terms" className="transition-colors hover:text-white">
-              Terms and Conditions
+              {t("footer.termsAndConditions")}
             </Link>
           </div>
         </div>

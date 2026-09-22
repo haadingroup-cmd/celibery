@@ -9,11 +9,14 @@ import { ProductArt } from "@/components/ui/ProductArt";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { useCart } from "@/lib/cart-context";
+import { useLanguage } from "@/lib/language-context";
+import { categoryLabels } from "@/data/i18n";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({ product }: { product: Product }) {
   const category = getCategoryBySlug(product.categorySlug);
   const { addItem } = useCart();
+  const { lang } = useLanguage();
   const [added, setAdded] = useState(false);
 
   return (
@@ -50,7 +53,9 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="mt-4 flex flex-1 flex-col gap-1.5">
-        <p className="text-[11px] font-medium tracking-wide text-neutral-500 uppercase">{category?.name}</p>
+        <p className="text-[11px] font-medium tracking-wide text-neutral-500 uppercase">
+          {category ? (categoryLabels[lang][category.slug] ?? category.name) : ""}
+        </p>
         <h3 className="text-sm font-bold text-neutral-900 transition-colors group-hover:text-brand-emerald">{product.name}</h3>
         <p className="line-clamp-2 text-xs leading-relaxed text-neutral-500">{product.tagline}</p>
         <Rating value={product.rating} count={product.reviewCount} className="mt-1" />

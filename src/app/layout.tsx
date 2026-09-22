@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { WelcomePopup } from "@/components/layout/WelcomePopup";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CartProvider } from "@/lib/cart-context";
+import { LanguageProvider } from "@/lib/language-context";
 import { site } from "@/data/site";
 
 const bodyFont = Inter({
@@ -55,13 +56,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <CartProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <WhatsAppButton />
-          <WelcomePopup />
-        </CartProvider>
+        <LanguageProvider>
+          <CartProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <WhatsAppButton />
+            <WelcomePopup />
+          </CartProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

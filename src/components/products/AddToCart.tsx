@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Check, Minus, Plus, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart-context";
+import { useLanguage } from "@/lib/language-context";
 import type { Product } from "@/data/products";
 
 export function AddToCart({ product }: { product: Product }) {
   const { addItem } = useCart();
+  const { t } = useLanguage();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -44,11 +46,11 @@ export function AddToCart({ product }: { product: Product }) {
       >
         {added ? (
           <>
-            <Check className="h-4 w-4" /> Added to bag
+            <Check className="h-4 w-4" /> {t("common.addedToBag")}
           </>
         ) : (
           <>
-            <ShoppingBag className="h-4 w-4" /> Add to bag
+            <ShoppingBag className="h-4 w-4" /> {t("common.addToBag")}
           </>
         )}
       </Button>

@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { ProductArt } from "@/components/ui/ProductArt";
+import { useLanguage } from "@/lib/language-context";
 
 export function WelcomePopup() {
   const [visible, setVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 900);
@@ -34,17 +36,14 @@ export function WelcomePopup() {
         </div>
 
         <div className="flex-1 pr-4">
-          <p className="text-sm font-bold text-neutral-900">Welcome to Celibery</p>
-          <p className="mt-0.5 text-xs leading-relaxed text-neutral-500">
-            Meet the CEL-96S — 16W sound, 16-hour battery, IP67 tough. Free express delivery in the UAE on orders
-            over AED 150.
-          </p>
+          <p className="text-sm font-bold text-neutral-900">{t("popup.welcomeTitle")}</p>
+          <p className="mt-0.5 text-xs leading-relaxed text-neutral-500">{t("popup.welcomeText")}</p>
           <Link
             href="/products/cel-96s-speaker"
             onClick={() => setVisible(false)}
             className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-brand-emerald hover:underline"
           >
-            Shop CEL-96S →
+            {t("popup.shopCta")}
           </Link>
         </div>
       </div>

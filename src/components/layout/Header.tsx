@@ -9,7 +9,9 @@ import { products, getProductBySlug } from "@/data/products";
 import { ProductArt } from "@/components/ui/ProductArt";
 import { formatAed } from "@/data/products";
 import { SearchOverlay } from "@/components/layout/SearchOverlay";
+import { LanguageToggle } from "@/components/layout/LanguageToggle";
 import { useCart } from "@/lib/cart-context";
+import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
 
 type MenuKey = "nas" | "charging" | "accessories" | null;
@@ -19,20 +21,20 @@ const nasPerformance = products.filter((p) => p.categorySlug === "nas-performanc
 const nasSpotlight = getProductBySlug("nasync-dh2300")!;
 
 const chargingColumns = [
-  { title: "Power Banks", items: products.filter((p) => p.categorySlug === "power-banks").slice(0, 4) },
-  { title: "Chargers", items: products.filter((p) => p.categorySlug === "chargers").slice(0, 4) },
-  { title: "Wireless Qi2", items: products.filter((p) => p.categorySlug === "wireless-chargers").slice(0, 4) },
-  { title: "Cables & Adapters", items: products.filter((p) => p.categorySlug === "cables").slice(0, 4) },
-  { title: "Car Chargers", items: products.filter((p) => p.categorySlug === "car-chargers").slice(0, 4) },
-  { title: "Power Strips & Desks", items: products.filter((p) => p.categorySlug === "power-strips").slice(0, 4) },
-];
+  { titleKey: "powerBanks", items: products.filter((p) => p.categorySlug === "power-banks").slice(0, 4) },
+  { titleKey: "chargers", items: products.filter((p) => p.categorySlug === "chargers").slice(0, 4) },
+  { titleKey: "wirelessQi2", items: products.filter((p) => p.categorySlug === "wireless-chargers").slice(0, 4) },
+  { titleKey: "cablesAdapters", items: products.filter((p) => p.categorySlug === "cables").slice(0, 4) },
+  { titleKey: "carChargers", items: products.filter((p) => p.categorySlug === "car-chargers").slice(0, 4) },
+  { titleKey: "powerStripsDesks", items: products.filter((p) => p.categorySlug === "power-strips").slice(0, 4) },
+] as const;
 const chargingSpotlight = getProductBySlug("magflow-3in1-wireless-25w")!;
 
 const accessoriesColumns = [
-  { title: "Hubs & Docks", items: products.filter((p) => p.categorySlug === "hubs-docks").slice(0, 4) },
-  { title: "Smart Trackers", items: products.filter((p) => p.categorySlug === "trackers").slice(0, 4) },
-  { title: "Audio & TWS", items: products.filter((p) => p.categorySlug === "audio").slice(0, 4) },
-];
+  { titleKey: "hubsDocks", items: products.filter((p) => p.categorySlug === "hubs-docks").slice(0, 4) },
+  { titleKey: "smartTrackers", items: products.filter((p) => p.categorySlug === "trackers").slice(0, 4) },
+  { titleKey: "audioTws", items: products.filter((p) => p.categorySlug === "audio").slice(0, 4) },
+] as const;
 const accessoriesSpotlight = getProductBySlug("revodok-max-213")!;
 
 export function Header() {
@@ -40,6 +42,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [nasTab, setNasTab] = useState<"entry" | "performance">("entry");
   const { totalCount } = useCart();
+  const { t } = useLanguage();
 
   useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
@@ -63,14 +66,15 @@ export function Header() {
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-brand-green" />
-            <span className="hidden sm:inline">Free Express Delivery Across UAE on Orders Over AED 150</span>
-            <span className="sm:hidden">Free Delivery Over AED 150</span>
+            <span className="hidden sm:inline">{t("topbar.delivery")}</span>
+            <span className="sm:hidden">{t("topbar.deliveryShort")}</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] text-neutral-400 sm:gap-6">
-            <span className="hidden font-medium sm:inline">{site.region}</span>
-            <Link href="/contact" className="transition-colors hover:text-white">
-              Support Center
+          <div className="flex items-center gap-3 text-[11px] text-neutral-400 sm:gap-5">
+            <span className="hidden font-medium sm:inline">{t("topbar.region")}</span>
+            <Link href="/contact" className="hidden transition-colors hover:text-white sm:inline">
+              {t("topbar.support")}
             </Link>
+            <LanguageToggle />
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@ export function Header() {
               onClick={() => setMenu(menu === "nas" ? null : "nas")}
               className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
             >
-              <span>NAS</span>
+              <span>{t("nav.nas")}</span>
               <span className="rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
                 New
               </span>
@@ -105,23 +109,23 @@ export function Header() {
               onClick={() => setMenu(menu === "charging" ? null : "charging")}
               className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
             >
-              <span>Charging</span>
+              <span>{t("nav.charging")}</span>
               <ChevronDown className={cn("h-3.5 w-3.5 text-neutral-400 transition-transform", menu === "charging" && "rotate-180")} />
             </button>
             <button
               onClick={() => setMenu(menu === "accessories" ? null : "accessories")}
               className="flex items-center gap-1.5 py-7 transition-colors hover:text-brand-emerald"
             >
-              <span>Data &amp; Accessories</span>
+              <span>{t("nav.data")}</span>
               <ChevronDown
                 className={cn("h-3.5 w-3.5 text-neutral-400 transition-transform", menu === "accessories" && "rotate-180")}
               />
             </button>
             <Link href="/about" className="py-2 transition-colors hover:text-brand-emerald">
-              About
+              {t("nav.about")}
             </Link>
             <Link href="/contact" className="py-2 transition-colors hover:text-brand-emerald">
-              Support
+              {t("nav.support")}
             </Link>
           </nav>
         </div>
@@ -129,14 +133,14 @@ export function Header() {
         <div className="flex items-center gap-2 text-neutral-800 sm:gap-4">
           <SearchOverlay />
           <button
-            aria-label="Account"
+            aria-label={t("nav.account")}
             className="hidden h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 hover:text-brand-emerald sm:flex"
           >
             <User className="h-5 w-5" />
           </button>
           <Link
             href="/cart"
-            aria-label={`Cart${totalCount > 0 ? `, ${totalCount} items` : ""}`}
+            aria-label={`${t("nav.cart")}${totalCount > 0 ? `, ${totalCount}` : ""}`}
             className="relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 hover:text-brand-emerald"
           >
             <ShoppingBag className="h-5 w-5" />
@@ -147,7 +151,7 @@ export function Header() {
             )}
           </Link>
           <button
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             onClick={() => setMobileOpen((v) => !v)}
             className="flex h-9 w-9 items-center justify-center rounded-full text-gray-700 hover:text-black lg:hidden"
           >
@@ -160,7 +164,7 @@ export function Header() {
       <MegaMenuPanel open={menu === "nas"}>
         <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
           <div className="flex items-center gap-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Storage Category:</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">{t("nav.storageCategory")}</span>
             <div className="flex gap-2">
               <button
                 onClick={() => setNasTab("entry")}
@@ -169,7 +173,7 @@ export function Header() {
                   nasTab === "entry" ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
                 )}
               >
-                Entry-Level
+                {t("nav.entryLevel")}
               </button>
               <button
                 onClick={() => setNasTab("performance")}
@@ -178,12 +182,12 @@ export function Header() {
                   nasTab === "performance" ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
                 )}
               >
-                Performance &amp; Business
+                {t("nav.performanceBusiness")}
               </button>
             </div>
           </div>
           <Link href="/products?category=nas" onClick={() => setMenu(null)} className="text-xs font-semibold text-brand-emerald hover:underline">
-            View All Storage Drives &amp; Enclosures &rarr;
+            {t("nav.viewAllStorage")}
           </Link>
         </div>
         <div className="grid grid-cols-12 gap-8">
@@ -222,10 +226,10 @@ export function Header() {
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-8 grid grid-cols-3 gap-6">
             {chargingColumns.map((col) => (
-              <div key={col.title}>
+              <div key={col.titleKey}>
                 <h4 className="mb-3 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-900">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-                  {col.title}
+                  {t(`nav.${col.titleKey}`)}
                 </h4>
                 <ul className="space-y-2.5 text-xs text-neutral-600">
                   {col.items.map((item) => (
@@ -241,7 +245,7 @@ export function Header() {
                       onClick={() => setMenu(null)}
                       className="block pt-1 font-semibold text-brand-emerald hover:underline"
                     >
-                      View All &rarr;
+                      {t("nav.viewAll")}
                     </Link>
                   </li>
                 </ul>
@@ -257,10 +261,10 @@ export function Header() {
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-8 grid grid-cols-3 gap-6">
             {accessoriesColumns.map((col) => (
-              <div key={col.title}>
+              <div key={col.titleKey}>
                 <h4 className="mb-3 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-900">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-                  {col.title}
+                  {t(`nav.${col.titleKey}`)}
                 </h4>
                 <ul className="space-y-2.5 text-xs text-neutral-600">
                   {col.items.map((item) => (
@@ -276,7 +280,7 @@ export function Header() {
                       onClick={() => setMenu(null)}
                       className="block pt-1 font-semibold text-brand-emerald hover:underline"
                     >
-                      View All &rarr;
+                      {t("nav.viewAll")}
                     </Link>
                   </li>
                 </ul>
@@ -297,23 +301,23 @@ export function Header() {
         <div className="overflow-hidden">
           <nav className="flex flex-col gap-1 px-4 pb-6 pt-2 sm:px-6">
             <Link href="/products?category=nas" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
-              NAS
+              {t("nav.nas")}
             </Link>
             <Link href="/products?category=power-banks" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
-              Charging
+              {t("nav.charging")}
             </Link>
             <Link href="/products?category=hubs-docks" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
-              Data &amp; Accessories
+              {t("nav.data")}
             </Link>
             <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3.5 text-base font-medium text-neutral-800 hover:bg-gray-50">
-              About
+              {t("nav.about")}
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
               className="mt-2 rounded-xl bg-neutral-900 px-4 py-3.5 text-center text-base font-medium text-white"
             >
-              Support
+              {t("nav.support")}
             </Link>
           </nav>
         </div>
@@ -344,6 +348,7 @@ function SpotlightCard({
   onNavigate: () => void;
   light?: boolean;
 }) {
+  const { t } = useLanguage();
   return (
     <div
       className={cn(
@@ -360,7 +365,7 @@ function SpotlightCard({
             light ? "bg-brand-green/20 text-brand-emerald" : "border border-brand-green/30 bg-brand-green/10 text-brand-green",
           )}
         >
-          Featured Highlight
+          {t("nav.featuredHighlight")}
         </span>
         <h3 className={cn("mt-3 text-xl font-extrabold", light ? "text-neutral-900" : "text-white")}>{product.name}</h3>
         <p className={cn("mt-2 text-xs leading-relaxed", light ? "text-neutral-600" : "text-neutral-300")}>{product.tagline}</p>
@@ -383,7 +388,7 @@ function SpotlightCard({
             light ? "bg-neutral-900 text-white hover:bg-black" : "bg-brand-green text-black hover:bg-brand-emerald",
           )}
         >
-          {light ? "Shop Now" : "Buy Now"}
+          {light ? t("nav.shopNow") : t("nav.buyNow")}
         </Link>
       </div>
     </div>

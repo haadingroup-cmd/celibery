@@ -6,10 +6,12 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ProductArt } from "@/components/ui/ProductArt";
 import { useCart } from "@/lib/cart-context";
+import { useLanguage } from "@/lib/language-context";
 import { formatAed } from "@/data/products";
 
 export function CartView() {
   const { items, setQty, removeItem, subtotal } = useCart();
+  const { t } = useLanguage();
 
   if (items.length === 0) {
     return (
@@ -18,13 +20,10 @@ export function CartView() {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
             <ShoppingBag className="h-7 w-7" strokeWidth={1.5} />
           </div>
-          <h1 className="text-2xl font-semibold text-neutral-900">Your bag is empty</h1>
-          <p className="max-w-sm text-neutral-500">
-            Looks like you haven&apos;t added anything yet. Explore our speakers, headphones, and chargers to find
-            your next essential.
-          </p>
+          <h1 className="text-2xl font-semibold text-neutral-900">{t("cart.emptyBagTitle")}</h1>
+          <p className="max-w-sm text-neutral-500">{t("cart.emptyBagText")}</p>
           <Button href="/products" variant="primary" size="lg" className="mt-2">
-            Continue shopping
+            {t("common.continueShopping")}
           </Button>
         </Container>
       </div>
@@ -36,9 +35,9 @@ export function CartView() {
   return (
     <div className="py-10 sm:py-14">
       <Container>
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Your Bag</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">{t("cart.yourBag")}</h1>
         <p className="mt-1 text-sm text-neutral-500">
-          {items.length} {items.length === 1 ? "item" : "items"}
+          {items.length} {items.length === 1 ? t("common.item") : t("common.items")}
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
@@ -94,28 +93,28 @@ export function CartView() {
           </ul>
 
           <div className="flex h-fit flex-col gap-4 rounded-2xl border border-neutral-100 bg-neutral-50 p-6">
-            <h2 className="text-lg font-bold text-neutral-900">Order Summary</h2>
+            <h2 className="text-lg font-bold text-neutral-900">{t("cart.orderSummary")}</h2>
             <div className="flex items-center justify-between text-sm text-neutral-600">
-              <span>Subtotal</span>
+              <span>{t("cart.subtotal")}</span>
               <span className="font-medium text-neutral-900">{formatAed(subtotal)}</span>
             </div>
             <div className="flex items-center justify-between text-sm text-neutral-600">
-              <span>Shipping</span>
-              <span className="font-medium text-neutral-900">{shippingFree ? "Free" : formatAed(15)}</span>
+              <span>{t("cart.shipping")}</span>
+              <span className="font-medium text-neutral-900">{shippingFree ? t("cart.free") : formatAed(15)}</span>
             </div>
             {!shippingFree && (
               <p className="text-xs text-neutral-500">Add {formatAed(150 - subtotal)} more for free shipping.</p>
             )}
             <div className="h-px bg-neutral-200" />
             <div className="flex items-center justify-between text-base font-bold text-neutral-900">
-              <span>Total</span>
+              <span>{t("cart.total")}</span>
               <span>{formatAed(shippingFree ? subtotal : subtotal + 15)}</span>
             </div>
             <Button href="/checkout" variant="accent" size="lg" className="mt-2 w-full">
-              Proceed to Checkout
+              {t("common.proceedToCheckout")}
             </Button>
             <Link href="/products" className="text-center text-sm text-neutral-500 hover:text-neutral-900">
-              Continue shopping
+              {t("common.continueShopping")}
             </Link>
           </div>
         </div>
