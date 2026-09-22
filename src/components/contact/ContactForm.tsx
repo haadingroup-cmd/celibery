@@ -3,13 +3,33 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { submitContact, ApiError } from "@/lib/api";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setSubmitting(true);
+
+    const form = new FormData(e.currentTarget);
+
+    try {
+      await submitContact({
+        name: String(form.get("name") ?? "").trim(),
+        email: String(form.get("email") ?? "").trim(),
+        subject: String(form.get("subject") ?? "").trim(),
+        message: String(form.get("message") ?? "").trim(),
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -87,8 +107,14 @@ export function ContactForm() {
         />
       </div>
 
-      <Button type="submit" variant="primary" size="lg" className="self-start">
-        Send message <Send className="h-4 w-4" />
+      {error && (
+        <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
+          {error}
+        </p>
+      )}
+
+      <Button type="submit" variant="primary" size="lg" className="self-start" disabled={submitting}>
+        {submitting ? "Sending..." : "Send message"} <Send className="h-4 w-4" />
       </Button>
     </form>
   );

@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 import { site, footerColumns } from "@/data/site";
 import { footerLabels } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { subscribeNewsletter, ApiError } from "@/lib/api";
 import {
   InstagramIcon,
   FacebookIcon,
@@ -30,12 +31,27 @@ const socialIcons = {
 
 export function Footer() {
   const [submitted, setSubmitted] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { lang, t } = useLanguage();
   const fl = (label: string) => footerLabels[lang][label] ?? label;
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setSubscribing(true);
+
+    const form = new FormData(e.currentTarget);
+    const email = String(form.get("email") ?? "").trim();
+
+    try {
+      await subscribeNewsletter(email);
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : t("footer.subscribeFailed"));
+    } finally {
+      setSubscribing(false);
+    }
   }
 
   return (
@@ -55,21 +71,24 @@ export function Footer() {
                 <div className="flex gap-2">
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder={t("footer.emailPlaceholder")}
                     className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2.5 text-xs text-white placeholder:text-neutral-500 focus:border-brand-green focus:outline-none"
                   />
                   <button
                     type="submit"
-                    className="flex-shrink-0 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-black transition-colors hover:bg-neutral-200"
+                    disabled={subscribing}
+                    className="flex-shrink-0 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-black transition-colors hover:bg-neutral-200 disabled:opacity-50"
                   >
-                    {t("footer.signUp")}
+                    {subscribing ? t("footer.subscribing") : t("footer.signUp")}
                   </button>
                 </div>
                 <label className="flex items-start gap-2 text-[11px] text-neutral-400">
                   <input type="checkbox" required className="mt-0.5" />
                   <span>{t("footer.agree").replace("{name}", site.name)}</span>
                 </label>
+                {error && <p role="alert" className="text-[11px] font-medium text-red-400">{error}</p>}
               </form>
             )}
 

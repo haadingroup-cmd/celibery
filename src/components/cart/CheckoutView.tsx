@@ -9,21 +9,51 @@ import { ProductArt } from "@/components/ui/ProductArt";
 import { useCart } from "@/lib/cart-context";
 import { useLanguage } from "@/lib/language-context";
 import { formatAed } from "@/data/products";
-
-function generateOrderRef() {
-  return `CB-${Math.floor(100000 + Math.random() * 900000)}`;
-}
+import { createOrder, ApiError } from "@/lib/api";
 
 export function CheckoutView() {
   const { items, subtotal, clear } = useCart();
   const { t } = useLanguage();
   const [placed, setPlaced] = useState(false);
-  const [orderRef] = useState(generateOrderRef);
+  const [orderRef, setOrderRef] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setPlaced(true);
-    clear();
+    setError(null);
+    setSubmitting(true);
+
+    const form = new FormData(e.currentTarget);
+    const notes = String(form.get("notes") ?? "").trim();
+
+    try {
+      const result = await createOrder({
+        customer: {
+          fullName: String(form.get("fullName") ?? "").trim(),
+          phone: String(form.get("phone") ?? "").trim(),
+          email: String(form.get("email") ?? "").trim(),
+          address: String(form.get("address") ?? "").trim(),
+          city: String(form.get("city") ?? "").trim(),
+          ...(notes ? { notes } : {}),
+        },
+        items: items.map((item) => ({ productId: item.id, qty: item.qty })),
+      });
+      setOrderRef(result.ref);
+      setPlaced(true);
+      clear();
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 409 && err.productId) {
+        const soldOut = items.find((item) => item.id === err.productId);
+        setError(t("checkout.itemSoldOut").replace("{name}", soldOut?.name ?? soldOut?.id ?? err.productId));
+      } else if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError(t("common.genericError"));
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (placed) {
@@ -83,6 +113,7 @@ export function CheckoutView() {
                 </label>
                 <input
                   id="fullName"
+                  name="fullName"
                   required
                   type="text"
                   placeholder="Jane Doe"
@@ -95,6 +126,7 @@ export function CheckoutView() {
                 </label>
                 <input
                   id="phone"
+                  name="phone"
                   required
                   type="tel"
                   placeholder="+971 5X XXX XXXX"
@@ -109,6 +141,7 @@ export function CheckoutView() {
               </label>
               <input
                 id="email"
+                name="email"
                 required
                 type="email"
                 placeholder="you@email.com"
@@ -122,6 +155,7 @@ export function CheckoutView() {
               </label>
               <input
                 id="address"
+                name="address"
                 required
                 type="text"
                 placeholder="Street, building, apartment"
@@ -136,6 +170,7 @@ export function CheckoutView() {
                 </label>
                 <input
                   id="city"
+                  name="city"
                   required
                   type="text"
                   placeholder="Dubai"
@@ -148,6 +183,7 @@ export function CheckoutView() {
                 </label>
                 <input
                   id="notes"
+                  name="notes"
                   type="text"
                   placeholder="Landmark, preferred time..."
                   className="h-12 rounded-xl border border-neutral-200 px-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-green focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-100"
@@ -186,8 +222,13 @@ export function CheckoutView() {
               <span>{t("cart.total")}</span>
               <span>{formatAed(total)}</span>
             </div>
-            <Button type="submit" variant="accent" size="lg" className="mt-2 w-full">
-              {t("common.placeOrder")}
+            {error && (
+              <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
+                {error}
+              </p>
+            )}
+            <Button type="submit" variant="accent" size="lg" className="mt-2 w-full" disabled={submitting}>
+              {submitting ? t("checkout.placingOrder") : t("common.placeOrder")}
             </Button>
             <p className="text-center text-xs text-neutral-400">{t("checkout.codNote")}</p>
             <Link href="/cart" className="text-center text-sm text-neutral-500 hover:text-neutral-900">

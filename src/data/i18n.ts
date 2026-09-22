@@ -87,6 +87,8 @@ export const dictionaries = {
       signUp: "Sign up",
       agree: "I agree to receive {name} news, offers, and product updates via email.",
       subscribed: "You're subscribed — check your inbox for the welcome email.",
+      subscribing: "Signing up...",
+      subscribeFailed: "Something went wrong. Please try again.",
       allRightsReserved: "Group Limited. All rights reserved.",
       privacyPolicy: "Privacy Policy",
       termsAndConditions: "Terms and Conditions",
@@ -114,6 +116,7 @@ export const dictionaries = {
       items: "items",
       allProductsTitle: "All products",
       allProductsSubtitle: "Every NAS, charger, power bank, and dock we make — one design language, lab-tested for safety.",
+      genericError: "Something went wrong. Please try again.",
     },
     cart: {
       yourBag: "Your Bag",
@@ -141,6 +144,8 @@ export const dictionaries = {
       orderReceivedTitle: "Order received",
       emptyTitle: "Your bag is empty",
       emptyText: "Add something to your bag before checking out.",
+      placingOrder: "Placing order...",
+      itemSoldOut: "{name} just sold out — please remove it from your bag and try again.",
     },
     popup: {
       welcomeTitle: "Welcome to Celibery",
@@ -198,6 +203,8 @@ export const dictionaries = {
       signUp: "اشتراك",
       agree: "أوافق على تلقي أخبار {name} والعروض وتحديثات المنتجات عبر البريد الإلكتروني.",
       subscribed: "تم اشتراكك بنجاح — تحقق من بريدك الإلكتروني لرسالة الترحيب.",
+      subscribing: "جارٍ التسجيل...",
+      subscribeFailed: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
       allRightsReserved: "جروب ليمتد. جميع الحقوق محفوظة.",
       privacyPolicy: "سياسة الخصوصية",
       termsAndConditions: "الشروط والأحكام",
@@ -225,6 +232,7 @@ export const dictionaries = {
       items: "منتجات",
       allProductsTitle: "جميع المنتجات",
       allProductsSubtitle: "كل جهاز تخزين وشاحن وباور بانك ومحطة توصيل نصنعها — لغة تصميم واحدة، مُختبرة معمليًا للسلامة.",
+      genericError: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     },
     cart: {
       yourBag: "سلة التسوق",
@@ -252,6 +260,8 @@ export const dictionaries = {
       orderReceivedTitle: "تم استلام الطلب",
       emptyTitle: "سلتك فارغة",
       emptyText: "أضف شيئًا إلى سلتك قبل إتمام الدفع.",
+      placingOrder: "جارٍ تنفيذ الطلب...",
+      itemSoldOut: "نفدت الكمية من {name} — يرجى إزالته من سلتك والمحاولة مرة أخرى.",
     },
     popup: {
       welcomeTitle: "مرحبًا بك في Celibery",
