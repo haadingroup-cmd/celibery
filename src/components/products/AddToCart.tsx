@@ -38,7 +38,18 @@ export function AddToCart({ product }: { product: Product }) {
         size="lg"
         className="flex-1"
         onClick={() => {
-          addItem({ id: product.id, slug: product.slug, name: product.name, price: product.price, visual: product.visual }, qty);
+          addItem(
+            {
+              id: product.id,
+              slug: product.slug,
+              name: product.name,
+              price: product.price,
+              visual: product.visual,
+              images: product.images,
+              thumbnail: product.thumbnail,
+            },
+            qty,
+          );
           setAdded(true);
           setQty(1);
           setTimeout(() => setAdded(false), 2200);

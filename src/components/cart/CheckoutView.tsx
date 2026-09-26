@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { CheckCircle2, ShoppingBag } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { ProductArt } from "@/components/ui/ProductArt";
+import { ProductVisual } from "@/components/ui/ProductVisual";
 import { useCart } from "@/lib/cart-context";
 import { useLanguage } from "@/lib/language-context";
 import { formatAed } from "@/data/products";
@@ -162,7 +162,13 @@ export function CheckoutView() {
               {items.map((item) => (
                 <li key={item.id} className="flex items-center gap-3">
                   <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white">
-                    <ProductArt kind={item.visual} className="h-8 w-8" />
+                    <ProductVisual
+                      images={item.images}
+                      thumbnail={item.thumbnail}
+                      visual={item.visual}
+                      name={item.name}
+                      className="h-8 w-8"
+                    />
                   </div>
                   <div className="flex-1">
                     <p className="text-xs font-medium text-neutral-900">{item.name}</p>

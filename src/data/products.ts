@@ -66,6 +66,10 @@ export type Product = {
   description: string;
   badge?: "New" | "Hot" | "Flagship" | "Pro";
   visual: VisualKind;
+  /** Real product photography, in display order. Falls back to the ProductArt icon when absent. */
+  images?: string[];
+  /** Tightly-cropped, no-reflection variant of the hero photo for small icon contexts (cards, cart rows, popups). */
+  thumbnail?: string;
   rating: number;
   reviewCount: number;
   features: string[];
@@ -85,6 +89,13 @@ export const products: Product[] = [
       "The CEL-96S packs room-filling 16W sound into a rugged, pocketable body. IP67-rated against water and dust, tuned for a full day of play on a single charge, and paired instantly over stable Bluetooth 5.4 — built for wherever the moment takes you.",
     badge: "Flagship",
     visual: "speaker",
+    images: [
+      "/images/products/cel-96s-speaker/1.jpg",
+      "/images/products/cel-96s-speaker/2.jpg",
+      "/images/products/cel-96s-speaker/3.jpg",
+      "/images/products/cel-96s-speaker/4.jpg",
+    ],
+    thumbnail: "/images/products/cel-96s-speaker/thumb.jpg",
     rating: 4.8,
     reviewCount: 214,
     features: [

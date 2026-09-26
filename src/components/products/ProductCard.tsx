@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowUpRight, Check, ShoppingBag } from "lucide-react";
 import type { Product } from "@/data/products";
 import { formatAed, getCategoryBySlug } from "@/data/products";
-import { ProductArt } from "@/components/ui/ProductArt";
+import { ProductVisual, productVisualProps } from "@/components/ui/ProductVisual";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { useCart } from "@/lib/cart-context";
@@ -25,7 +25,10 @@ export function ProductCard({ product }: { product: Product }) {
       className="group flex flex-col rounded-2xl border border-gray-200 bg-[#fbfbfd] p-4 transition-all hover:border-brand-emerald hover:shadow-md"
     >
       <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-white">
-        <ProductArt kind={product.visual} className="h-28 w-28 transition-transform duration-500 group-hover:scale-105" />
+        <ProductVisual
+          {...productVisualProps(product)}
+          className="h-28 w-28 transition-transform duration-500 group-hover:scale-105"
+        />
         {product.badge && (
           <Badge tone={product.badge === "New" ? "dark" : "brand"} className="absolute left-2 top-2">
             {product.badge}
@@ -39,7 +42,18 @@ export function ProductCard({ product }: { product: Product }) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            addItem({ id: product.id, slug: product.slug, name: product.name, price: product.price, visual: product.visual }, 1);
+            addItem(
+              {
+                id: product.id,
+                slug: product.slug,
+                name: product.name,
+                price: product.price,
+                visual: product.visual,
+                images: product.images,
+                thumbnail: product.thumbnail,
+              },
+              1,
+            );
             setAdded(true);
             setTimeout(() => setAdded(false), 1800);
           }}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { ProductArt } from "@/components/ui/ProductArt";
+import { ProductVisual } from "@/components/ui/ProductVisual";
 import { useCart } from "@/lib/cart-context";
 import { useLanguage } from "@/lib/language-context";
 import { formatAed } from "@/data/products";
@@ -48,7 +48,13 @@ export function CartView() {
                   href={`/products/${item.slug}`}
                   className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-xl bg-[#fbfbfd] sm:h-24 sm:w-24"
                 >
-                  <ProductArt kind={item.visual} className="h-14 w-14 sm:h-16 sm:w-16" />
+                  <ProductVisual
+                    images={item.images}
+                    thumbnail={item.thumbnail}
+                    visual={item.visual}
+                    name={item.name}
+                    className="h-14 w-14 sm:h-16 sm:w-16"
+                  />
                 </Link>
 
                 <div className="flex flex-1 flex-col gap-1">

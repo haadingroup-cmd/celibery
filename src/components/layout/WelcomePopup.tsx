@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { ProductArt } from "@/components/ui/ProductArt";
+import { ProductVisual } from "@/components/ui/ProductVisual";
+import { getProductBySlug } from "@/data/products";
 import { useLanguage } from "@/lib/language-context";
+
+const speaker = getProductBySlug("cel-96s-speaker")!;
 
 export function WelcomePopup() {
   const [visible, setVisible] = useState(false);
@@ -32,7 +35,13 @@ export function WelcomePopup() {
         </button>
 
         <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-neutral-100">
-          <ProductArt kind="speaker" className="h-9 w-9" />
+          <ProductVisual
+            images={speaker.images}
+            thumbnail={speaker.thumbnail}
+            visual={speaker.visual}
+            name={speaker.name}
+            className="h-11 w-11"
+          />
         </div>
 
         <div className="flex-1 pr-4">

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { ChevronRight, RotateCcw, ShieldCheck, Truck } from "lucide-react";
-import { ProductArt } from "@/components/ui/ProductArt";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { ProductCard } from "@/components/products/ProductCard";
+import { ProductGallery } from "@/components/products/ProductGallery";
 import { AddToCart } from "@/components/products/AddToCart";
 import { formatAed, type Category, type Product } from "@/data/products";
 import { categoryLabels } from "@/data/i18n";
@@ -42,8 +42,8 @@ export function ProductDetailView({
       </nav>
 
       <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="relative mx-auto flex w-full max-w-md items-center justify-center rounded-3xl border border-gray-200 bg-[#fbfbfd] p-10 lg:sticky lg:top-28 lg:max-w-none lg:self-start">
-          <ProductArt kind={product.visual} className="h-64 w-64" />
+        <div className="relative mx-auto flex w-full max-w-md flex-col items-center justify-center rounded-3xl border border-gray-200 bg-[#fbfbfd] p-10 lg:sticky lg:top-28 lg:max-w-none lg:self-start">
+          <ProductGallery images={product.images} visual={product.visual} name={product.name} />
           {product.badge && (
             <Badge tone={product.badge === "New" ? "dark" : "brand"} className="absolute left-4 top-4">
               {product.badge}
