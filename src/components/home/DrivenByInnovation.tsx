@@ -24,7 +24,7 @@ export function DrivenByInnovation() {
           src="/images/banners/innovation-banner.jpg"
           alt="Celibery — smart tech accessories for every moment"
           fill
-          className="object-cover object-left-top"
+          className="object-cover object-[left_20%]"
           sizes="100vw"
         />
       </div>
