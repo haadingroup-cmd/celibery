@@ -124,6 +124,8 @@ export const products: Product[] = [
       "Plush memory-foam earcushions and a foldable, travel-ready frame make these the headphones you forget you're wearing. Wireless freedom with crisp highs and deep, controlled bass — tuned for music, calls, and everything in between.",
     badge: "New",
     visual: "headphones",
+    images: ["/images/products/over-ear-headphones/1.jpg"],
+    thumbnail: "/images/products/over-ear-headphones/thumb.jpg",
     rating: 4.7,
     reviewCount: 132,
     features: [
@@ -179,6 +181,8 @@ export const products: Product[] = [
       "Two cables live inside the shell, always with you and never lost in the bottom of a bag. A live percentage display shows exactly how much charge is left, and 22.5W super-fast output means less time waiting and more time moving.",
     badge: "New",
     visual: "powerbank",
+    images: ["/images/products/power-bank-live-display/1.jpg"],
+    thumbnail: "/images/products/power-bank-live-display/thumb.jpg",
     rating: 4.7,
     reviewCount: 98,
     features: [
